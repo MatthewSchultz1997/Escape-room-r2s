@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,6 +19,51 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
+<?php
+$zero = "0";
+$one = "1";
+$servername = "192.168.1.186";
+$username   = "matt";
+$password   = "";
+$dbname     = "Escape_room_db";
+	
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+
+	$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$one','$zero','$zero','$zero','$zero','$zero','$zero')";
+	$result = $conn->query($sql);
+	$conn->close();
+
+//mysqli_commit($conn);
+//mysqli_close($conn);
+
+
+$msg1 = "Error: No Connection with the Roots2Stem station <br>----------------------------------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> Chat Logs: <br>-----------------------------------------------------------------------------------------------------------<br> <p>#1024506: 3 days ago<br>#1024507: 1 day ago<br>#1024508: 6 hrs ago<br><br>----------------------------------------------------------------------------------------------------------- <br> "; 
+$msg2 = "Enter log #";
+
+
+$fp = fopen('Comm1.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Communications Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+
+&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                       
+&nbsp;/ ___|&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __ ___&nbsp;&nbsp;&nbsp;&nbsp;_ __ ___&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;___ 
+| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `_ ` _ \&nbsp;&nbsp;| `_ ` _ \&nbsp;&nbsp;| | | | | `_ \&nbsp;&nbsp;| |&nbsp;&nbsp;/ __|&nbsp;&nbsp;/ _` | | __| | |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `_ \&nbsp;&nbsp;/ __|
+| |___&nbsp;&nbsp;| (_) | | | | | | | | | | | | | | |_| | | | | | | | | (__&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;| | | (_) | | | | | \__ \
+&nbsp;\____|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_| |_| |_| |_| |_|&nbsp;&nbsp;\__,_| |_| |_| |_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__| |_|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_| |___/
+
+___________________________________________________________________________________________________________			
+<p>' . $msg1 . '</p>
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
+?>
+
 
 <html> 
 <head> 
@@ -156,7 +200,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Comm.txt";
+Typer.file="Comm1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -203,6 +247,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;

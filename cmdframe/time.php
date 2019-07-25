@@ -23,10 +23,10 @@ THE SOFTWARE.
 
 <?php
 
-$servername = "localhost";
-$username   = "root";
+$servername = "192.168.1.186";
+$username   = "matt";
 $password   = "";
-$dbname     = "escape_room_db";
+$dbname     = "Escape_room_db";
 
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -21,29 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
 
-<?php
-
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
-
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
-$result = $conn->query($sql);
-
-mysqli_commit($conn);
-mysqli_close($conn);
-
-?>
-
 <html> 
 <head> 
 <title>Marco Polo </title> 
@@ -179,7 +156,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Admin.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -207,18 +184,17 @@ function t() {
 
 </script>
 
-
-
 <script language="javascript">
 function check(form)
 {
-if(form.cmd.value == "ASCII Decode"
+if( form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Atmospheric Processing"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
  || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
+ || form.cmd.value == "Map"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
  || form.cmd.value == "Science Rover"
@@ -226,6 +202,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "Admin"
 )
 {
 	return true;
@@ -237,6 +214,12 @@ else
 }
 }
 </script>
+
+
+<form name="cmdentry" action="reset.php" method="post" >
+	<span  class="f"id="a">Enter Reset</span>
+	<input type="text" autocomplete="off" name="cmd" >
+</form>
 
 <form name="cmdentry" action="redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>

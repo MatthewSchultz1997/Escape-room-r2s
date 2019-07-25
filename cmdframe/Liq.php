@@ -156,7 +156,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Liq.txt";
+Typer.file="Liq1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -189,7 +189,7 @@ function t() {
 <script language="javascript">
 function check(form)
 {
-if(form.cmd.value == "ASCII Decode"
+if( form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Atmospheric Processing"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"

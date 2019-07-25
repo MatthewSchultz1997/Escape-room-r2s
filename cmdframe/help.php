@@ -156,7 +156,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="help1.txt";
+Typer.file="help3.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -192,9 +192,7 @@ if( form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
- || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
- || form.cmd.value == "Map"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
  || form.cmd.value == "Science Rover"
@@ -202,6 +200,7 @@ if( form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "Admin"
 )
 {
 	return true;

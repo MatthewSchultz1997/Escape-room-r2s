@@ -28,21 +28,86 @@ $username   = "matt";
 $password   = "";
 $dbname     = "Escape_room_db";
 
+
+//check which piping connection have been made
+$array = array("Moisture_H2O_Out", "Sabatier_H2O_Out", "OGA_H2O_R_Feed");
+for($i=0; $i <3; $i++){
+	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 //check connection
 if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
+//selecting data from the database
+$sql ="SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
 $result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
 
+if ($i == 0){
+	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
+}
+if ($i == 1){
+	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];
+}
+if ($i == 2){
+	$Moisture_H2O_Out = $row['Moisture_H2O_Out'];
+}
 mysqli_commit($conn);
 mysqli_close($conn);
+}
+//Prepearing messages to be displayed based on database
+if($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No piping detected";}
+if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==1){$j=1;$msg1 ="| Water Recovery module Online |";}
+if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No output piping detected";}
+if(($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: No feed piping detected";}
+if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: Only 1 feed piping detected. Output piping properly configured";}
+if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: Only 1 feed piping detected. No output piping detected";}
+$msg2 = "Type Help for a list of commands";
 
+$fp = fopen('Water_C.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Water Recovery module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
+\ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ /&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
+&nbsp;\ \ /\ / /&nbsp;&nbsp;&nbsp;/ _` | | __|&nbsp;&nbsp;/ _ \ | `__|
+&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
+&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___|&nbsp;|_|
+&nbsp;____                                                      
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ 
+| |_) |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;/ __|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;\ \ / /&nbsp;&nbsp;/ _ \ | `__| | | | |
+|&nbsp;&nbsp;_ <&nbsp;&nbsp;|&nbsp;&nbsp;__/ | (__&nbsp;&nbsp;| (_) |&nbsp;&nbsp;\ V /&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |&nbsp;&nbsp;&nbsp;&nbsp;| |_| |
+|_| \_\&nbsp;&nbsp;\___|&nbsp;&nbsp;\___|&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;&nbsp;\_/&nbsp;&nbsp;&nbsp;&nbsp;\___| |_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__, |
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___/    
+_________________________________________________________________________________
+
+<p>Loading Water Recovery units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
+$one = "1";
+$zero = "0";
+if ($j == "1"){
+$servername = "192.168.1.186";
+$username = "matt";
+$password ="";
+$dbname="Escape_room_db";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+	die("connection failed:" . $conn->connect_error);
+}
+$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$zero','$zero','$one','$zero','$zero','$zero','$zero')";
+$result = $conn->query($sql);
+
+$conn->close();
+
+}
 ?>
+
+
 
 <html> 
 <head> 
@@ -179,7 +244,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Water_C.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -217,7 +282,6 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
- || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -237,8 +301,8 @@ else
 }
 }
 </script>
-
-<form name="cmdentry" action="redirect.php" method="post" >
+ 
+<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

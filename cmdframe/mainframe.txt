@@ -1,0 +1,15 @@
+<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Marco Polo Mainframe... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]<br/><br/>
+
+<span id="b">M</span>ars<span id="b"> A</span>tmospheric & <span id="b">R</span>egolith <span id="b">CO</span>llector/<span id="b">P</span>r<span id="b">O</span>cessor for <span id="b">L</span>ander <span id="b">O</span>perations 
+
+ &nbsp;__&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_         
+ | &nbsp;\/&nbsp; | &nbsp; __ _ &nbsp; _ __ &nbsp;&nbsp; ___ &nbsp;&nbsp; ___&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; _&nbsp;\ &nbsp;&nbsp;&nbsp;___ &nbsp; | | &nbsp; ___  
+ | |\/| |&nbsp; / _&nbsp; | |&nbsp; __|&nbsp; / __|&nbsp; / _ \&nbsp;&nbsp;&nbsp;| |_)&nbsp;| &nbsp;/ _ \&nbsp; | |&nbsp; / _ \ 
+ | |&nbsp; | | | (_| | | |&nbsp; &nbsp; | (__ &nbsp;| (_) |&nbsp;&nbsp;|&nbsp; __/&nbsp; | (_) | | | | (_) |
+ |_|&nbsp; |_|&nbsp; \__`_| |_|&nbsp; &nbsp; &nbsp;\___| &nbsp;\___/&nbsp;&nbsp;&nbsp;|_| &nbsp; &nbsp; &nbsp;\___/ &nbsp;|_| &nbsp;\___/ 
+
+
+Powering on available modules...<!-- laglaglaglaglaglaglaglaglaglaglaglag --> 
+<p>Modules Online: <br>------------------------------------------------------------------------------------ <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br>   | Soil Processing |  | Water Cleanup |  | Rover |    | Liquefaction |  <br>------------------------------------------------------------------------------------<br><br> <p>System error finding following module(s): <br>------------------------------------------------------------------------------------ <br> | Atmospheric Processing |  | Communications |     | Power Production |  <br> | Water Processing  |   <br> <!-- somesystemlaghere --->------------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> </p>
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> Enter Help for a list of commands </p> 

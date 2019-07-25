@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,29 +19,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm2.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024506 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Marco Polo: Roots 2 Stem, this is Marco Polo, do you copy?
 
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+Roots2Stem: We copy Marco Polo.
 
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
-$result = $conn->query($sql);
+Marco Polo: We are having trouble setting up the Sabatier Reactor reagent flow rate, can you give us a quick reminder about how to do stoichiometry?
 
-mysqli_commit($conn);
-mysqli_close($conn);
+Roots2Stem: In stoichiometry, the equation given represents a chemical reaction. Elements, as denoted by capital letters, sometimes followed by a lowercase letter, must be balanced, or equal, on both sides of the arrow which represents a reaction taking place.  To balance the equation, count the number of elements on both sides of the reaction.  Starting with carbon, if you have more carbons on one side of the equation than on the other, find the lowest common multiple between sides and multiple the molecules coefficients by that number. Next, balance oxygens in the same manner followed by hydrogen.
+ 
+Marco Polo: Right, that makes so much sense. Once I balance the equation, how do I find the inlet flow rate of each reagent?
 
+Roots2Stem: First thing you have to do is use the ideal gas law to determine the number of mols that occupy each litre of inlet gas at the reactor`s pressure and temperature. To do this, you have to use P*V=n*R*T and determine the ratio V/n. Make sure your pressure is in Pascals (Pa), volume is in cubed meters (m^3) and temperature is in Kelvin (K). Next, divide the LPM by that ratio, giving you the molar flow rate in mols/minute. From here just multiply the molar flow rate by the ratio of each molecule to the total number of mols entering and multiply by 60 to change the time frame from per minute to per hour.
+
+Marco Polo: Just to check, my molar flow rate of hydrogen should be 12.0 mol/hr?
+
+Roots2Stem: Looks like you got the hang of it! just repeat that for the other 3 molecular species.
+
+Marco Polo: Roger that.
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
 ?>
+
 
 <html> 
 <head> 
@@ -55,7 +58,7 @@ mysqli_close($conn);
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -84,7 +87,7 @@ mysqli_close($conn);
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -179,7 +182,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Comm2.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -226,6 +229,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;

@@ -23,15 +23,15 @@ THE SOFTWARE.
 
 <?php
 
-$servername = "localhost";
-$username   = "root";
+$servername = "192.168.1.186";
+$username   = "matt";
 $password   = "";
-$dbname     = "escape_room_db";
+$dbname     = "Escape_room_db";
 
 
 //check which modules are online
-$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Connect", "Sabatier_Feedrate", "O2_Connect", "CDRA_Connect", "CDRA_Leak", "Test");
-for($i=0; $i <8; $i++){
+$array = array("OGA_H2_Out", "CDRA_CO2_Out", "Sabatier_H2O_Out", "Sabatier_CH4_Out");
+for($i=0; $i <4; $i++){
 	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -41,28 +41,76 @@ if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM atm_p ORDER BY ". $array[$i] ." desc";
+$sql = "SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
+if ($i == 0){
+	$OGA_H2_Out = $row['OGA_H2_Out'];	
+}
 if ($i == 1){
-	$sb = $row['Sabatier_Balance'];	
+	$CDRA_CO2_Out = $row['CDRA_CO2_Out'];	
 }
 if ($i == 2){
-	$sc = $row['Sabatier_Connect'];	
+	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];	
 }
 if ($i == 3){
-	$sf = $row['Sabatier_Feedrate'];	
+	$Sabatier_CH4_Out = $row['Sabatier_CH4_Out'];	
+}
+
+mysqli_commit($conn);
+mysqli_close($conn);
+}
+//Piping section
+$msg2 = $msg3 = $msg4 = "";
+$piping = 0;
+//No pping set up
+if($CDRA_CO2_Out ==0 && $OGA_H2_Out ==0 && $Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==0){$msg1 ="Error: No piping detected";}
+//feed is set up
+if($CDRA_CO2_Out ==1 && $OGA_H2_Out ==1){
+	if($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==0){$msg1 = "Error: Feed set up. No output pipes detected";}
+	if($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0){$msg1 = "Error: Feed set up. No CH4 output pipe detected";}
+	if($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1){$msg1 = "Error: Feed set up. No H20 output pipe detected";}
+	if($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1){$piping = 1;$msg1 = "Piping Properly configured <br>";}
+}
+//if feed is half set up
+if($CDRA_CO2_Out ==1 xor $OGA_H2_Out ==1){
+	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: H2 feed and CH4 output pipes not detected";}
+	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: H2 feed and H20 output pipes not detected";}
+	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No CO2 feed detected";}
+	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: CO2 feed and CH4 output pipes not detected";}
+	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: CO2 feed and H20 output pipes not detected";}
+	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No H2 feed detected";}
+}
+//feed is not set up
+if($CDRA_CO2_Out ==0 && $OGA_H2_Out==0){
+	if($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1){$msg1 = "Error: Output set up. No feed piping  detected";}
+	if($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1){$msg1 = "Error: Only CH4 output piping detected";}
+	if($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0){$msg1 = "Error: Only H20 output piping detected";}
+}
+$msg = "Enter Help for a list of commands";
+
+//check which modules are online
+$array = array("Sabatier_Balance", "Sabatier_Feedrate");
+for($i=0; $i <2; $i++){
+$sql = "SELECT * FROM atm_p ORDER BY " . $array[$i] . " desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+if ($i == 0){
+	$Sabatier_Balance = $row['Sabatier_Balance'];	
+}
+if ($i == 1){
+	$Sabatier_Feedrate = $row['Sabatier_Feedrate'];	
 }
 
 mysqli_commit($conn);
 mysqli_close($conn);
 }
 
-if($sb ==1 && $sc ==1 && $sf ==1){$j=4;$sr1 = "| Sabatier Reactor Online |";} 
-if($sc ==1 && $sb ==1 && $sf ==0){$j=3;$sr1 = "Error: Feedrate not set"; $srb = "Feed Connected <br> Reaction balanced <br>";}
-if($sc ==1 && $sb ==0 && $sf ==0){$j=2;$sr1 = "Error: Feedrate not set<br>"; $srb = "Feed Connected <br> Error: Sabatier Reaction Unbalanced <br> Balance the following reaction: <br> X H2 + Y CO2 --> Z H2O + W CH4 <br>";}
-if($sc ==0 && $sb ==0 && $sf ==0){$j=1;$sr1 = "Error: Feedrate not set"; $srb ="Error: No Feed Connected <br> Error: Sabatier Reaction Unbalanced <br>";}
-if($j==1){$msg = "Type Help for a list of commands";} if($j==2){$msg =" Type '-X ? -Y ? -Z ? -W ?' to balance equation or Help for a list of commands";} if($j==3){$msg = "Type '-H2 ? -CO2 ? -H2O ? -CH4 ?' to enter feedrates in kmol/h or Help for a list of commands";} if($j==4){$msg = "Type Help for a list of commands";}
+if($piping == 1){
+	if($Sabatier_Balance ==0 && $Sabatier_Feedrate ==0){$msg2 = "Error: Sabatier Reaction Unbalanced <br> Balance the following reaction: <br> X H2 + Y CO2 --> Z H2O + W CH4 <br>"; $msg =" Enter '-X ? -Y ? -Z ? -W ?' to balance equation or Help for a list of commands";$msg3 = $msg4 = "";}
+	if($Sabatier_Balance ==1 && $Sabatier_Feedrate ==0){$msg3 = "Error: Feedrate not set <br>";$msg = "Enter '-H2 ? -CO2 ? -H2O ? -CH4 ?' to set feedrates and product rates in mol/hr rounded to 3 significant figures or Help for a list of commands";$msg2 = "Reaction Balanced <br>";$msg4 = "";}
+	if($Sabatier_Balance ==1 && $Sabatier_Feedrate ==1){$msg4 = "| Sabatier Reactor Online |"; $msg = "Type Help for a list of commands";$msg1="";} 
+}
 
 $fp = fopen('Sabatier_Reactor.txt', 'w+');
 fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Sabatier Reactor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
@@ -80,7 +128,7 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
                                                    
 __________________________________________________________________________________
 
-<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $srb . ' ' . $sr1 . ' <br>----------------------------------------------------------------------------------</p> 
+<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . ' ' . $msg2 . ' ' . $msg3 . ' ' . $msg4 . ' <br>----------------------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg . ' </p> ');
 
@@ -272,7 +320,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
  || form.cmd.value == "-X 4 -Y 1 -Z 2 -W 1"
- || form.cmd.value == "-H2 1 -CO2 2 -H2O 3 -CH4 4"
+ || form.cmd.value == "-H2 12.0 -CO2 3.01 -H2O 10.0 -CH4 5.01"
 )
 {
 	return true;

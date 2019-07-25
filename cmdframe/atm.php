@@ -22,19 +22,15 @@ THE SOFTWARE.
 --> 
 
 <?php
-
-session_start();
-
-
-$servername = "localhost";
-$username   = "root";
+$servername = "192.168.1.186";
+$username   = "matt";
 $password   = "";
-$dbname     = "escape_room_db";
+$dbname     = "Escape_room_db";
 
 
 //check which modules are online
-$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Connect", "Sabatier_Feedrate", "O2_Connect", "CDRA_Connect", "CDRA_Leak", "Test");
-for($i=0; $i <8; $i++){
+$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Feedrate", "CDRA_Connect", "CDRA_Leak", "Test");
+for($i=0; $i <6; $i++){
 	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -43,7 +39,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
-
+//Checking which units are online
 $sql = "SELECT * FROM atm_p ORDER BY ". $array[$i] ." desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
@@ -54,34 +50,71 @@ if ($i == 1){
 	$sb = $row['Sabatier_Balance'];	
 }
 if ($i == 2){
-	$sc = $row['Sabatier_Connect'];	
-}
-if ($i == 3){
 	$sf = $row['Sabatier_Feedrate'];	
 }
 if ($i == 4){
-	$oc = $row['O2_Connect'];	
-}
-if ($i == 5){
-	$cc = $row['CDRA_Connect'];	
-}
-if ($i == 6){
 	$cl = $row['CDRA_Leak'];	
 }
-if ($i == 7){
+if ($i == 5){
 	$test = $row['Test'];	
 }
+}
+mysqli_commit($conn);
+mysqli_close($conn);
 
+//check if the piping is properly wired
+$array = array("OGA_H2O_Feed", "OGA_H2O_R_Feed", "OGA_O2_Out", "OGA_H2_Out", "CDRA_CO2_Out", "Sabatier_H2O_Out", "Sabatier_CH4_Out", "Moisture_H2O_Out", "N2_Purge");
+for($i=0; $i <9; $i++){
+	
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+$sql = "SELECT * FROM Piping ORDER BY ". $array[$i] ." desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+
+if ($i == 0){
+	$OGA_H2O_Feed = $row['OGA_H2O_Feed'];	
+}
+if ($i == 1){
+	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];	
+}
+if ($i == 2){
+	$OGA_O2_Out = $row['OGA_O2_Out'];	
+}
+if ($i == 3){
+	$OGA_H2_Out = $row['OGA_H2_Out'];	
+}
+if ($i == 4){
+	$CDRA_CO2_Out = $row['CDRA_CO2_Out'];	
+}
+if ($i == 5){
+	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];	
+}
+if ($i == 6){
+	$Sabatier_CH4_Out = $row['Sabatier_CH4_Out'];	
+}
+if ($i == 7){
+	$Moisture_H2O_Out = $row['Moisture_H2O_Out'];	
+}
+if ($i == 8){
+	$N2_Purge = $row['N2_Purge'];	
+}
 mysqli_commit($conn);
 mysqli_close($conn);
 }
 
-if($pp ==1 && $oc==1){$pp1 = "| Habitat Atmospheric Pressure | "; $pp0 = "";}                                else{$pp0 = "| Habitat Atmospheric Pressure | "; $pp1 = "";}
-if($sb ==1 && $sc ==1 && $sf ==1){$sr1 = "| Sabatier Reactor |"; $sr0 = "";}             else{$sr0 = "| Sabatier Reactor | "; $sr1 = "";}
-if($cc ==1 && $cl ==1){$cdra1 = "| Carbon Dioxide Recovery Assembly | "; $cdra0 = "";} else{$cdra0 = "| Carbon Dioxide Recovery Assembly | "; $cdra1 = "";}
+$j=0;
+if($pp ==1 && $OGA_O2_Out==1){$pp1 = "| Habitat Atmospheric Pressure | "; $pp0 = "";}          else{$pp0 = "| Habitat Atmospheric Pressure | "; $pp1 = "";}
+if($sb ==1 && $sf ==1 && $Sabatier_CH4_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2_Out ==1 && $CDRA_CO2_Out ==1){$sr1 = "| Sabatier Reactor |"; $sr0 = "";}           else{$sr0 = "| Sabatier Reactor | <br>"; $sr1 = "";}
+if($CDRA_CO2_Out ==1 && $cl ==1){$cdra1 = "| Carbon Dioxide Recovery Assembly | "; $cdra0 = "";} else{$cdra0 = "| Carbon Dioxide Recovery Assembly | "; $cdra1 = "";}
 if($test ==1){$t1= "| test | "; $t0 = "";}                                             else{$t0 = "| test | "; $t1 = "";}
 
-if($pp ==1 && $sb ==1 && $sc ==1 && $sf ==1 && $oc ==1 && $cc ==1 && $cl ==1 && $test ==1){$j=1;$msg1 = "| All Units Online |"; $msg2 = "Enter Marco Polo to redirect to the mainframe";} 
+if($pp ==1 && $sb ==1 && $Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1 && $sf ==1 && $OGA_O2_Out ==1 && $CDRA_CO2_Out ==1 && $cl ==1 && $test ==1){$j=1;$msg1 = "| All Units Online |"; $msg2 = "Enter Marco Polo to redirect to the mainframe";} 
 else{$msg1 = "Units Online: <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> $pp1 $sr1 $cdra1 $t1 <br>----------------------------------------------------------------------------------<br><br> <p>System error finding following Unit(s): <br>---------------------------------------------------------------------------------- <br> $pp0 $sr0 $cdra0 $t0    <br> <!-- somesystemlaghere --->----------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter unit name";}
 
 
@@ -107,7 +140,21 @@ ________________________________________________________________________________
 
 fclose($fp);
 
-$_SESSION["atmp"] = $j;
+//if all units are online, register that the Atmospheric Processing module is online
+if($j ==1){
+	$servername = "192.168.1.186";
+	$username = "matt";
+	$password ="";
+	$dbname="Escape_room_db";
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+		// Check connection
+	if ($conn->connect_error) {
+		die("connection failed:" . $conn->connect_error);
+	}
+	$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$one','$zero','$zero','$zero','$zero','$zero','$zero','$zero')";
+	$result = $conn->query($sql);
+}
 
 ?>
 
@@ -297,6 +344,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Sabatier Reactor"
  || form.cmd.value == "Habitat Atmospheric Pressure"
  || form.cmd.value == "Carbon Dioxide Recovery Assembly"
+ || form.cmd.value == "Connect"
 )
 {
 	return true;

@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,29 +19,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm1.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024508 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Marco Polo: Roots 2 Stem, this is the Marco Polo station, do you read me?
 
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+Roots2Stem: We can read you.
 
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
-$result = $conn->query($sql);
+Marco Polo: We just detected a dust storm on the horizon, how does it look from the space station?
 
-mysqli_commit($conn);
-mysqli_close($conn);
+Roots2Stem: I`s looking like a class 5 dust storm, 3 hours out. Will you be able to finish the Marco Polo exoskeleton in that time?
 
+Marco Polo: We will able to anchor it, the contents might be tossed about but its not going anywhere. Im worried the mainframe will need to reboot, breaking our connection.
+
+Roots2Stem: Hold tight Marco Polo, you`ve set everything up once, i`m sure you can do it again.
+
+Marco Polo: Roger that, over and out. 
+
+Roots2Stem: over and out.
+
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
 ?>
+
 
 <html> 
 <head> 
@@ -55,7 +57,7 @@ mysqli_close($conn);
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -84,7 +86,7 @@ mysqli_close($conn);
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -179,7 +181,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Comm1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -226,6 +228,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;

@@ -28,6 +28,11 @@ $username   = "matt";
 $password   = "";
 $dbname     = "Escape_room_db";
 
+
+//check which modules are online
+$array = array("atm_P", "Comm", "Soil_P", "Water_C", "Rover", "Pwr_P", "Water_P", "Liq");
+for($i=0; $i <8; $i++){
+	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -35,13 +40,74 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
+//check capital M
+$sql = "SELECT * FROM Modules ORDER BY ". $array[$i] ." desc";
 $result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+  //test to check the value of each variable
+//echo $array[$i] ;
+//echo $row['atm_P'] . "," . $row['Comm'] . "," . $row['Soil_P'] . "," . $row['Water_C'] . "," . $row['Rover'] . "," . $row['Pwr_P'] . "," . $row['Water_P']. "," . $row['Liq'];
+//echo "<br>";
 
+if ($i == 0){
+	$atm_p = $row['atm_P'];
+}
+if ($i == 1){
+	$comm = $row['Comm'];
+}
+if ($i == 2){
+	$soil_p = $row['Soil_P'];
+}
+if ($i == 3){
+	$water_c = $row['Water_C'];
+}
+if ($i == 4){
+	$rover = $row['Rover'];
+}
+if ($i == 5){
+	$pwr_p = $row['Pwr_P'];
+}
+if ($i == 6){
+	$water_p = $row['Water_P'];
+}
+if ($i == 7){
+	$liq = $row['Liq'];
+}
 mysqli_commit($conn);
 mysqli_close($conn);
+}
 
+if($atm_p ==1){$ap1 = "| Atmospheric Processing | "; $ap0 = "";} else{$ap0 = "| Atmospheric Processing | "; $ap1 = "";}
+if($comm ==1){$c1   = "| Communications | "; $c0 = "";}          else{$c0   = "| Communications | "; $c1 = "" ;} 
+if($soil_p ==1){$s1= "| Soil Processing | "; $s0 = "";}          else{$s0 = "| Soil Processing | "; $s1 = "";}
+if($water_c ==1){$wc1= "| Water Cleanup | "; $wc0 = "";}         else{$wc0 = "| Water Cleanup | "; $wc1 = "";}
+if($rover ==1){$r1 = "| Rover | "; $r0 = "";}                    else{$r0 = "| Rover | "; $r1 = "";}
+if($pwr_p ==1){$p1= "| Power Production | "; $p0 = "";}          else{$p0 = "| Power Production | "; $p1 = "";}
+if($water_p ==1){$wp1= "| Water Processing | "; $wp0 = "";}      else{$wp0 = "| Water Processing | "; $wp1 = "";}
+if($liq ==1){$l1= "| Liquefaction | "; $l0 = "";}                else{$l0 = "| Liquefaction | "; $l1 = "";}
+
+//coloured linux~$ below
+//<span id="a">Linuxcmd</span>:<span id="b">~</span><span id="c">$</span>
+
+if($atm_p ==1 && $comm ==1 && $soil_p ==1 && $water_c ==1 && $rover ==1 && $pwr_p ==1 && $water_p ==1 && $liq ==1){$j=1;$msg1 = "| All Modules Online |"; $msg2 = "Winner!";} 
+else{$msg1 = "Modules Online: <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> $ap1 $c1 $s1 $wc1 $r1 $p1 $wp1 $l1 <br>----------------------------------------------------------------------------------<br><br> <p>System error finding following module(s): <br>---------------------------------------------------------------------------------- <br> $ap0 $c0 $s0 $wc0 $r0 $p0 $wp0 $l0 <br> <!-- somesystemlaghere --->----------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter Help for a list of commands";}
+
+
+$fp = fopen('mainframe.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Marco Polo Mainframe... &nbsp&nbsp&nbsp [ OK ]<br/><br/>
+
+ &nbsp;__&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_         
+ | &nbsp;\/&nbsp; | &nbsp; __ _ &nbsp; _ __ &nbsp;&nbsp; ___ &nbsp;&nbsp; ___&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; _&nbsp;\ &nbsp;&nbsp;&nbsp;___ &nbsp; | | &nbsp; ___  
+ | |\/| |&nbsp; / _&nbsp; | |&nbsp; __|&nbsp; / __|&nbsp; / _ \&nbsp;&nbsp;&nbsp;| |_)&nbsp;| &nbsp;/ _ \&nbsp; | |&nbsp; / _ \ 
+ | |&nbsp; | | | (_| | | |&nbsp; &nbsp; | (__ &nbsp;| (_) |&nbsp;&nbsp;|&nbsp; __/&nbsp; | (_) | | | | (_) |
+ |_|&nbsp; |_|&nbsp; \__`_| |_|&nbsp; &nbsp; &nbsp;\___| &nbsp;\___/&nbsp;&nbsp;&nbsp;|_| &nbsp; &nbsp; &nbsp;\___/ &nbsp;|_| &nbsp;\___/ 
+
+
+Powering on available modules...<!-- laglaglaglaglaglaglaglaglaglaglaglag --> 
+<p>' . $msg1 . '</p>
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
+fclose($fp);
 ?>
 
 <html> 
@@ -93,7 +159,8 @@ mysqli_close($conn);
 	color: #fff; 
 	font-size:14px;
 	font-family: courier, monospace;
-	}	
+	}
+	
 </style> 
 </head> 
 
@@ -179,7 +246,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="mainframe.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -191,7 +258,6 @@ function t() {
 }
  
 </script> 
-
 <div id="console"></div> 
 <script type="text/javascript">
 
@@ -206,8 +272,6 @@ function t() {
   })();
 
 </script>
-
-
 
 <script language="javascript">
 function check(form)
@@ -243,6 +307,7 @@ else
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>
 </form>
+
 
 
 </body> 

@@ -4,6 +4,9 @@
 $user=$_POST['cmd'];
 
 //Pages
+if($user == "Admin"){
+	header("Location: http://192.168.1.157/cmdframe/Admin.php");
+}
 if($user == "Carbon Dioxide Recovery Assembly"){
 	header("Location: http://192.168.1.157/cmdframe/CDRA.php");
 }
@@ -25,17 +28,20 @@ if($user == "Boot"){
 if($user == "Communications"){
 	header("Location: http://192.168.1.157/cmdframe/Module_login.php");
 }
+if($user == "1024506"){
+	header("Location: http://192.168.1.157/cmdframe/1024506.php");
+}
+if($user == "1024507"){
+	header("Location: http://192.168.1.157/cmdframe/1024507.php");
+}
+if($user == "1024508"){
+	header("Location: http://192.168.1.157/cmdframe/1024508.php");
+}
 if($user == "Help"){
 	header("Location: http://192.168.1.157/cmdframe/help.php");
 }
-if($user == "Hint"){
-	header("Location: http://192.168.1.157/cmdframe/hint.php");
-}
 if($user == "Liquefaction"){
 	header("Location: http://192.168.1.157/cmdframe/Module_login.php");
-}
-if($user == "Map"){
-	header("Location: http://192.168.1.157/cmdframe/map.php");
 }
 if($user == "Marco Polo"){
 	header("Location: http://192.168.1.157/cmdframe/mainframesource.php");

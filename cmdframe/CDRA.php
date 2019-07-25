@@ -22,57 +22,68 @@ THE SOFTWARE.
 --> 
 
 <?php
-
-
-$servername = "localhost";
-$username   = "root";
+$servername = "192.168.1.186";
+$username   = "matt";
 $password   = "";
-$dbname     = "escape_room_db";
-
-
-//check which modules are online
-$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Connect", "Sabatier_Feedrate", "O2_Connect", "CDRA_Connect", "CDRA_Leak", "Test");
-for($i=0; $i <8; $i++){
+$dbname     = "Escape_room_db";
 	
-//create connection
+
+
+$array = array("OGA_O2_Out", "CDRA_CO2_Out");
+for($i=0; $i <2; $i++){
+	//create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 //check connection
 if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
-
-$sql = "SELECT * FROM atm_p ORDER BY ". $array[$i] ." desc";
+$sql = "SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
-if ($i == 5){
-	$CDRA_C = $row['CDRA_Connect'];	
+if($i ==0){
+	$OGA_O2_Out = $row['OGA_O2_Out'];
 }
-if ($i == 6){
-	$CDRA_L = $row['CDRA_Leak'];	
+if($i ==1){
+	$CDRA_CO2_Out = $row['CDRA_CO2_Out'];
 }
+mysqli_commit($conn);
+mysqli_close($conn);
+
+}
+//check if the OGA unit is online
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sql = "SELECT * FROM Modules ORDER BY atm_P desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$atm_P = $row['atm_P'];
 
 mysqli_commit($conn);
 mysqli_close($conn);
-}
 
-if($CDRA_C ==1 && $CDRA_L ==1){$sr1 = "| Carbon Dioxide Recovery Assembly Online |";} 
-if($CDRA_C ==1 && $CDRA_L ==0){$sr1 = "Error: Pressure low -Leak detected"; $srb ="Input & Output lines properly configured <br>";}
-if($CDRA_C ==0 && $CDRA_L ==0){$sr1 ="Error: Check input and output feeds";}
+if($CDRA_CO2_Out ==1 && $OGA_O2_Out ==0){$msg1 = "Error: No feed piping detected";}
+if($CDRA_CO2_Out ==0 && $OGA_O2_Out ==1){$msg1 = "Error: No output piping detected";}
+if($CDRA_CO2_Out ==0 && $OGA_O2_Out ==0){$msg1 ="Error: No piping detected";}
 $msg = "Type Help for a list of commands";
 
+if($CDRA_CO2_Out ==1 && $OGA_O2_Out ==1){
+	if($atm_P ==1){$msg1 = "| Carbon Dioxide Recovery Assembly Online | <br> Ready for Boot...";}
+	else{$msg1 = "| Carbon Dioxide Recovery Assembly Online | <br> Waiting for Sabatier reactor to come online...";}
+} 
 
-$fp = fopen('CDRA.txt', 'w+');
+
+$fp = fopen('CDRA1.txt', 'w+');
 fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the CDRA unit... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
 
 &nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_    
 &nbsp;/ ___| |&nbsp;&nbsp;_ \&nbsp;&nbsp;|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ \   
-| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| | | | | |_) |&nbsp;&nbsp;&nbsp;/ _ \  
+| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| | | | | |_) |&nbsp;&nbsp;&nbsp;/ A \  
 | |___&nbsp;&nbsp;| |_| | |&nbsp;&nbsp;_ <&nbsp;&nbsp;&nbsp;/ ___ \ 
 &nbsp;\____| |____/&nbsp;&nbsp;|_| \_\ /_/&nbsp;&nbsp;&nbsp;\_\
 ____________________________________________________________________
 
-<p>Loading Carbon Dioxide Recovery Assembly Inputs..... <br>--------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $srb . ' ' . $sr1 . ' <br>---------------------------------------------------------------------</p> 
+<p>Loading Carbon Dioxide Recovery Assembly Inputs..... <br>--------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg . ' </p> ');
 
@@ -216,7 +227,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="CDRA.txt";
+Typer.file="CDRA1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);

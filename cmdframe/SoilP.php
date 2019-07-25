@@ -22,7 +22,6 @@ THE SOFTWARE.
 --> 
 
 <?php
-
 $servername = "192.168.1.186";
 $username   = "matt";
 $password   = "";
@@ -36,13 +35,54 @@ if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
 $time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
+$sql = "INSERT INTO time_SP (time) VALUES ($time)";
 $result = $conn->query($sql);
+
+$sql = "SELECT * FROM time_SP ORDER BY id asc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+
+$sqltime = $row['time'];
+$elapsed_time = ($time - $sqltime)/60;
+settype($elapsed_time, "integer");
+$remaining_time = (60 - $elapsed_time);
+settype($remaining_time, "integer");
 
 mysqli_commit($conn);
 mysqli_close($conn);
 
+$msg_first = "Preparing powder for sample: <br> 10g soda ash <br> 18g borax <br> 5g litharge <br> 7g flour <br> 10g silica <br> <!-- laglaglaglaglaglaglaglaglaglaglaglag --> adding powder to sample in crucible <br> <!-- laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag --> Moving crucible to furnace <br> <!-- laglaglaglaglaglaglaglaglaglaglaglag  laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag laglaglaglaglaglaglaglaglaglaglaglag --> time remaining in crucible = $remaining_time minutes ";
+$msg_second ="Sample in furnace. Time remaining: $remaining_time minutes <br> Previous samples ready for ICP/MS analysis";
+
+if(($time - $sqltime) == 0){$msg1 = $msg_first;} else {$msg1 =$msg_second;}
+
+$msg2 = "Type Help for a list of commands";
+
+
+$fp = fopen('Soil_P.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Soil Processing module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ 
+/ ___|&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;(_) | |
+\___ \&nbsp;&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| | | |
+&nbsp;___) | | (_) | | | | |
+|____/&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_|
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;(_)&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__ _ 
+| |_) | | `__|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;&nbsp;/ __|&nbsp;&nbsp;/ _ \ / __| / __| | | | `_ \&nbsp;&nbsp;&nbsp;/ _` |
+|&nbsp;&nbsp;__/&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;&nbsp;| (_) | | (__&nbsp;&nbsp;|&nbsp;&nbsp;__/ \__ \ \__ \ | | | | | | | (_| |
+|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;\___|&nbsp;&nbsp;\___| |___/ |___/ |_| |_| |_|&nbsp;&nbsp;\__, |
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___/ 
+
+_________________________________________________________________________________
+
+<p>Loading Science Soil Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
 ?>
+
+
 
 <html> 
 <head> 
@@ -179,7 +219,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Soil_P.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -217,7 +257,6 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
- || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -237,8 +276,8 @@ else
 }
 }
 </script>
-
-<form name="cmdentry" action="redirect.php" method="post" >
+ 
+<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

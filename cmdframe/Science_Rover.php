@@ -22,27 +22,32 @@ THE SOFTWARE.
 --> 
 
 <?php
+$msg1 = "Science Rover docked with soil samples, ready to be serviced.";
+$msg2 = "Type Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
 
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$fp = fopen('Rover.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Science Rover module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                              
+/ ___|&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;___ 
+\___ \&nbsp;&nbsp;&nbsp;/ __| | |&nbsp;&nbsp;/ _ \ | `_ \&nbsp;&nbsp;&nbsp;/ __|&nbsp;&nbsp;/ _ \
+&nbsp;___) | | (__&nbsp;&nbsp;| | |&nbsp;&nbsp;__/ | | | | | (__&nbsp;&nbsp;|&nbsp;&nbsp;__/
+|____/&nbsp;&nbsp;&nbsp;\___| |_|&nbsp;&nbsp;\___| |_| |_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\___|
+&nbsp;____                                
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
+| |_) |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;\ \ / /&nbsp;&nbsp;/ _ \ | `__|
+|&nbsp;&nbsp;_ <&nbsp;&nbsp;| (_) |&nbsp;&nbsp;\ V /&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
+|_| \_\&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;&nbsp;\_/&nbsp;&nbsp;&nbsp;&nbsp;\___| |_|   
+_____________________________________________________________________________
 
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
-$result = $conn->query($sql);
+<p>Loading Science Rover units..... <br>------------------------------------------------------------------------------ <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>------------------------------------------------------------------------------</p> 
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
 
-mysqli_commit($conn);
-mysqli_close($conn);
-
+fclose($fp);
 ?>
+
+
 
 <html> 
 <head> 
@@ -179,7 +184,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Rover.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -217,7 +222,6 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
- || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -237,8 +241,8 @@ else
 }
 }
 </script>
-
-<form name="cmdentry" action="redirect.php" method="post" >
+ 
+<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

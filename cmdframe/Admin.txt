@@ -1,0 +1,17 @@
+Module |IP Address | Passwords
+__________________________________
+
+atm &nbsp;&nbsp;&nbsp;| 192.168.1.101 | password1
+comm &nbsp;&nbsp;| 192.168.1.102 | password2
+soilP &nbsp;| 192.168.1.103 | password3
+WaterC | 192.168.1.104 | password4
+Rover &nbsp;| 192.168.1.105 | password5
+PwrP &nbsp;&nbsp;| 192.168.1.106 | password6
+WaterP | 192.168.1.107 | password7
+Liq &nbsp;&nbsp;&nbsp;| 192.168.1.108 | password8
+
+Sabatier Codes
+__________________________________
+Balanced reaction: "-X 4 -Y 1 -Z 2 -W 1"
+Feedrate: "-H2 12.0 -CO2 3.01 -H2O 10.0 -CH4 5.02"
+ 

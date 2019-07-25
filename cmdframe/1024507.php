@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,29 +19,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm2.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024507 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Roots2Stem: Marco Polo, this is Roots2Stem, can you hear me? 
 
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+Marco Polo: You`re coming through loud and clear.
 
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$time = time();
-$sql = "INSERT INTO time (time) VALUES ($time)";
-$result = $conn->query($sql);
+Roots2Stem: How have the last couple days been? Is the habitat online?
 
-mysqli_commit($conn);
-mysqli_close($conn);
+Marco Polo: The exoskeleton is built, we are just in the middle of setting up the wireless connection.  What should we set the static IP addresses/passwords to?
 
+Roots2Stem: Make it something easy.
+
+Marco Polo: Roger that, setting them to the following:
+Atmospheric Processing: 192.168.1.101/password1 
+Communications: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.102/password2 
+Soil Processing: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.103/password3 
+Water Cleanup: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.104/password4 
+Science Rover: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.105/password5 
+Power Production: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.1.106/password6 
+Water Processing: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.107/password7 
+Liquefaction: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.108/password8 
+
+Roots2Stem: Perfect.
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
 ?>
+
 
 <html> 
 <head> 
@@ -55,7 +62,7 @@ mysqli_close($conn);
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -84,7 +91,7 @@ mysqli_close($conn);
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -179,7 +186,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="boot.txt";
+Typer.file="Comm2.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -226,6 +233,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;

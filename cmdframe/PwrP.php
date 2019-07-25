@@ -21,6 +21,59 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
 
+<?php
+Session_start();
+
+$servername = "192.168.1.186";
+$username   = "matt";
+$password   = "";
+$dbname     = "Escape_room_db";
+
+
+//check which modules are online	
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM pwrp ORDER BY id DESC";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$Core_T = $row['Core_T'];
+$Fin_T  = $row['Fin_T'];
+$fix    = $row['Fix'];
+
+mysqli_commit($conn);
+mysqli_close($conn);
+
+if($fix==1){$msg1 = "| Power Production online |"; $msg2 = "Enter Marco Polo to redirect to the mainframe";} 
+else{$msg1 = "System Characteristics: <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> Core Temperature: $Core_T <br> Fin Temperature: $Fin_T <br> Power Output low: check RTG <br>----------------------------------------------------------------------------------<br><br> <!-- laglaglaglaglaglaglaglaglaglaglaglagsuperlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter Update to update page or Help for a list of commands";}
+
+
+$fp = fopen('PwrP1.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Power Production Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+&nbsp;____                                   
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
+| |_) |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;\ \ /\ / /&nbsp;&nbsp;/ _ \ | `__|
+|&nbsp;&nbsp;__/&nbsp;&nbsp;| (_) |&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
+|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;\___| |_|   
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__| |&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;| |_&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __  
+| |_) | | `__|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;&nbsp;/ _` | | | | |&nbsp;&nbsp;/ __| | __| | |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `_ \ 
+|&nbsp;&nbsp;__/&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;&nbsp;| (_) | | (_| | | |_| | | (__&nbsp;&nbsp;| |_&nbsp;&nbsp;| | | (_) | | | | |
+|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__| |_|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_|
+__________________________________________________________________________________  					
+<p>' . $msg1 . '</p>
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg2 . ' </p> ');
+
+fclose($fp);
+$_SESSION["pwrp"] = $fix;
+?>
+
 <html> 
 <head> 
 <title>Marco Polo </title> 
@@ -156,7 +209,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="PwrP.txt";
+Typer.file="PwrP1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -203,6 +256,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "Update"
 )
 {
 	return true;
@@ -215,7 +269,7 @@ else
 }
 </script>
 
-<form name="cmdentry" action="redirect.php" method="post" >
+<form name="cmdentry" action="Sabatier_redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

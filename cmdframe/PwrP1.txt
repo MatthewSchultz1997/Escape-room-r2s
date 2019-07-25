@@ -1,0 +1,15 @@
+<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Power Production Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+&nbsp;____                                   
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
+| |_) |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;\ \ /\ / /&nbsp;&nbsp;/ _ \ | `__|
+|&nbsp;&nbsp;__/&nbsp;&nbsp;| (_) |&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
+|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;\___| |_|   
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__| |&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;| |_&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __  
+| |_) | | `__|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;&nbsp;/ _` | | | | |&nbsp;&nbsp;/ __| | __| | |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `_ \ 
+|&nbsp;&nbsp;__/&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;&nbsp;| (_) | | (_| | | |_| | | (__&nbsp;&nbsp;| |_&nbsp;&nbsp;| | | (_) | | | | |
+|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__| |_|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_|
+__________________________________________________________________________________  					
+<p>System Characteristics: <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> Core Temperature: 100 <br> Fin Temperature: 50 <br> Power Output low: check RTG <br>----------------------------------------------------------------------------------<br><br> <!-- laglaglaglaglaglaglaglaglaglaglaglagsuperlonglagtimethattakesupalotoftimetoread --> </p>
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> Enter Update to update page or Help for a list of commands </p> 
