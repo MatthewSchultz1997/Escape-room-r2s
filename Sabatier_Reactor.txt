@@ -1,0 +1,18 @@
+<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Sabatier Reactor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_               
+/ ___|&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
+\___ \&nbsp;&nbsp;&nbsp;/ _` | | `_ \&nbsp;&nbsp;&nbsp;/ _` | | __| | |&nbsp;&nbsp;/ _ \ | `__|
+&nbsp;___) | | (_| | | |_) | | (_| | | |_&nbsp;&nbsp;| | |&nbsp;&nbsp;__/ | |   
+|____/&nbsp;&nbsp;&nbsp;\__,_| |_.__/&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__| |_|&nbsp;&nbsp;\___| |_|   
+&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                  
+|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __ 
+| |_) |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;/ _` |&nbsp;&nbsp;/ __| | __|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `__|
+|&nbsp;&nbsp;_ <&nbsp;&nbsp;|&nbsp;&nbsp;__/ | (_| | | (__&nbsp;&nbsp;| |_&nbsp;&nbsp;| (_) | | |   
+|_| \_\&nbsp;&nbsp;\___|&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_|   
+                                                   
+__________________________________________________________________________________
+
+<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br>    Sabatier Reactor Configured <br>Waiting for Oxygen Generation Assembly to come online...<br>----------------------------------------------------------------------------------</p> 
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> Type Help for a list of commands </p> 
