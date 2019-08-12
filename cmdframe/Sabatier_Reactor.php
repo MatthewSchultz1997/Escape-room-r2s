@@ -29,9 +29,9 @@ $password   = "";
 $dbname     = "Escape_room_db";
 
 
-//check which modules are online
-$array = array("OGA_H2_Out", "CDRA_CO2_Out", "Sabatier_H2O_Out", "Sabatier_CH4_Out");
-for($i=0; $i <4; $i++){
+					//check which pipes are connected
+$array = array("OGA_H2_Out", "CDRA_CO2_Out", "Sabatier_H2O_Out", "Sabatier_CH4_Out", "OGA_H2O_Feed", "OGA_H2O_R_Feed", "OGA_O2_Out", "OGA_H2_Out");
+for($i=0; $i <8; $i++){
 	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -56,14 +56,30 @@ if ($i == 2){
 if ($i == 3){
 	$Sabatier_CH4_Out = $row['Sabatier_CH4_Out'];	
 }
+if ($i == 4){
+	$OGA_H2O_Feed = $row['OGA_H2O_Feed'];
+}
+if ($i == 5){
+	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
+}
+if ($i == 6){
+	$OGA_O2_Out = $row['OGA_O2_Out'];
+}
+if ($i == 7){
+	$OGA_H2_Out = $row['OGA_H2_Out'];
+}
 
 mysqli_commit($conn);
 mysqli_close($conn);
 }
+
+if($OGA_H2O_R_Feed ==1 && $OGA_H2O_Feed ==1 && $OGA_H2_Out ==1 && $OGA_O2_Out ==1){$OGA =1;} else{$OGA =0;}
+
+
 //Piping section
-$msg2 = $msg3 = $msg4 = "";
-$piping = 0;
-//No pping set up
+$msg2 = $msg3 = $msg4 = $msg5 = "";
+$piping = $sabatier_configured = 0;
+//No piping set up
 if($CDRA_CO2_Out ==0 && $OGA_H2_Out ==0 && $Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==0){$msg1 ="Error: No piping detected";}
 //feed is set up
 if($CDRA_CO2_Out ==1 && $OGA_H2_Out ==1){
@@ -76,10 +92,12 @@ if($CDRA_CO2_Out ==1 && $OGA_H2_Out ==1){
 if($CDRA_CO2_Out ==1 xor $OGA_H2_Out ==1){
 	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: H2 feed and CH4 output pipes not detected";}
 	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: H2 feed and H20 output pipes not detected";}
-	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No CO2 feed detected";}
+	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No H2 feed detected";}
+	if($CDRA_CO2_Out ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: CO2 feed detected. No H2, H2O or CO2 lines detected";}	
 	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: CO2 feed and CH4 output pipes not detected";}
 	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: CO2 feed and H20 output pipes not detected";}
-	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No H2 feed detected";}
+	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1)){$msg1 = "Error: Output set up. No CO2 feed detected";}
+	if($OGA_H2_Out   ==1 && ($Sabatier_H2O_Out ==0 && $Sabatier_CH4_Out ==0)){$msg1 = "Error: H2 feed detected. No CO2, H2O or CO2 lines detected";}	
 }
 //feed is not set up
 if($CDRA_CO2_Out ==0 && $OGA_H2_Out==0){
@@ -92,6 +110,13 @@ $msg = "Enter Help for a list of commands";
 //check which modules are online
 $array = array("Sabatier_Balance", "Sabatier_Feedrate");
 for($i=0; $i <2; $i++){
+	//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+	//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
 $sql = "SELECT * FROM atm_p ORDER BY " . $array[$i] . " desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
@@ -105,13 +130,32 @@ if ($i == 1){
 mysqli_commit($conn);
 mysqli_close($conn);
 }
+//Check if Sabatier Module is online
 
-if($piping == 1){
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+	//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+$sql = "SELECT * FROM OGA_Boot ORDER BY Sabatier_Online desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$Sabatier_booted = $row['Sabatier_Online'];
+
+mysqli_commit($conn);
+mysqli_close($conn);
+
+if($piping ==1){
 	if($Sabatier_Balance ==0 && $Sabatier_Feedrate ==0){$msg2 = "Error: Sabatier Reaction Unbalanced <br> Balance the following reaction: <br> X H2 + Y CO2 --> Z H2O + W CH4 <br>"; $msg =" Enter '-X ? -Y ? -Z ? -W ?' to balance equation or Help for a list of commands";$msg3 = $msg4 = "";}
 	if($Sabatier_Balance ==1 && $Sabatier_Feedrate ==0){$msg3 = "Error: Feedrate not set <br>";$msg = "Enter '-H2 ? -CO2 ? -H2O ? -CH4 ?' to set feedrates and product rates in mol/hr rounded to 3 significant figures or Help for a list of commands";$msg2 = "Reaction Balanced <br>";$msg4 = "";}
-	if($Sabatier_Balance ==1 && $Sabatier_Feedrate ==1){$msg4 = "| Sabatier Reactor Online |"; $msg = "Type Help for a list of commands";$msg1="";} 
+	if($Sabatier_Balance ==1 && $Sabatier_Feedrate ==1){$msg4 = "Sabatier Reactor Configured"; $msg = "Type Help for a list of commands";$msg1=""; $sabatier_configured =1;} 
 }
-
+if($sabatier_configured ==1){ 
+	if($OGA ==1){$msg5 = "<br>Ready for boot...";}
+	else{$msg5 = "<br>Waiting for Oxygen Generation Assembly to come online...";}
+}
+if($Sabatier_booted ==1){$msg5 = "Sabatier Online";}
 $fp = fopen('Sabatier_Reactor.txt', 'w+');
 fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Sabatier Reactor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
 
@@ -128,7 +172,7 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
                                                    
 __________________________________________________________________________________
 
-<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . ' ' . $msg2 . ' ' . $msg3 . ' ' . $msg4 . ' <br>----------------------------------------------------------------------------------</p> 
+<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . ' ' . $msg2 . ' ' . $msg3 . ' ' . $msg4 . ' ' . $msg5 . '<br>----------------------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg . ' </p> ');
 

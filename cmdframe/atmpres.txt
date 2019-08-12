@@ -14,5 +14,4 @@
      
 __________________________________________________________________________________
 
-Oxygen %   = 9 
-Carbon Dioxide % = 91 <p> Habitat atmospheric conditions normalized <br><br><br> Enter Help for a list of commands </p> 
+<p> Habitat atmospheric conditions normalized <br><br><br> Enter Help for a list of commands </p> 

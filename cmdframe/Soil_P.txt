@@ -13,6 +13,6 @@
 
 _________________________________________________________________________________
 
-<p>Loading Science Soil Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> Sample in furnace. Time remaining: 59 minutes <br> Previous samples ready for ICP/MS analysis  <br>---------------------------------------------------------------------------------</p> 
+<p>Loading Soil Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> Sample in furnace. Time remaining: -12795 minutes <br> Previous samples ready for ICP/MS analysis  <br>---------------------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> Type Help for a list of commands </p> 

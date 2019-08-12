@@ -30,14 +30,14 @@ $conn->close();
 }
 //To specify feedrate//
 if ($user == "-H2 12.0 -CO2 3.01 -H2O 10.0 -CH4 5.01"){
-$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Feedrate, CDRA_Leak, Test) VALUES ('$zero','$zero','$one','$zero','$zero')";
+$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Feedrate, CDRA_Leak, CDRA_Online, Test) VALUES ('$zero','$zero','$one','$zero','$zero','$zero')";
 $result = $conn->query($sql);
 $conn->close();
 	header("Location: http://192.168.1.157/cmdframe/Sabatier_Reactor.php");
 }
 //To balance the chemical equation
 if ($user == "-X 4 -Y 1 -Z 2 -W 1"){
-$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Feedrate, CDRA_Leak, Test) VALUES ('$zero','$one','$zero','$zero','$zero')";
+$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Feedrate, CDRA_Leak, CDRA_Online, Test) VALUES ('$zero','$one','$zero','$zero','$zero','$zero')";
 $result = $conn->query($sql);
 $conn->close();
 	header("Location: http://192.168.1.157/cmdframe/Sabatier_Reactor.php");
@@ -55,8 +55,8 @@ header("Location: http://192.168.1.157/cmdframe/PwrP.php");
 //To update the partial pressure in the habitat atmospheric pressure unit of atmospheric processing
 if($user == "Refresh"){
 $O2Value = $_SESSION["O2"];
-	if($O2Value ==9){
-		$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Connect, Sabatier_Feedrate, O2_Connect, CDRA_Connect, CDRA_Leak, Test) VALUES ('$one','$zero','$zero','$zero','$zero','$zero','$zero','$zero')";
+	if($O2Value ==21){
+		$sql = "INSERT INTO atm_p (Partial_Pressures, Sabatier_Balance, Sabatier_Feedrate, CDRA_Leak, CDRA_Online, Test) VALUES ('$one','$zero','$zero','$zero','$zero','$zero')";
 		$result = $conn->query($sql);
 		
 	}

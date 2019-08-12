@@ -75,7 +75,7 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
 
 _________________________________________________________________________________
 
-<p>Loading Science Soil Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
+<p>Loading Soil Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg2 . ' </p> ');
 

@@ -28,9 +28,22 @@ $password   = "";
 $dbname     = "Escape_room_db";
 
 
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+//Checking OGA status
+$sql = "SELECT * FROM OGA_Boot ORDER BY Sabatier_Online desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$Sabatier_Online =$row['Sabatier_Online'];
+
 //check which modules are online
-$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Feedrate", "CDRA_Connect", "CDRA_Leak", "Test");
-for($i=0; $i <6; $i++){
+$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Feedrate", "CDRA_Leak", "CDRA_Online");
+for($i=0; $i <5; $i++){
 	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -52,11 +65,11 @@ if ($i == 1){
 if ($i == 2){
 	$sf = $row['Sabatier_Feedrate'];	
 }
-if ($i == 4){
+if ($i == 43){
 	$cl = $row['CDRA_Leak'];	
 }
-if ($i == 5){
-	$test = $row['Test'];	
+if ($i == 4){
+	$CDRA_Online = $row['CDRA_Online'];	
 }
 }
 mysqli_commit($conn);
@@ -109,14 +122,36 @@ mysqli_close($conn);
 }
 
 $j=0;
-if($pp ==1 && $OGA_O2_Out==1){$pp1 = "| Habitat Atmospheric Pressure | "; $pp0 = "";}          else{$pp0 = "| Habitat Atmospheric Pressure | "; $pp1 = "";}
-if($sb ==1 && $sf ==1 && $Sabatier_CH4_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2_Out ==1 && $CDRA_CO2_Out ==1){$sr1 = "| Sabatier Reactor |"; $sr0 = "";}           else{$sr0 = "| Sabatier Reactor | <br>"; $sr1 = "";}
-if($CDRA_CO2_Out ==1 && $cl ==1){$cdra1 = "| Carbon Dioxide Recovery Assembly | "; $cdra0 = "";} else{$cdra0 = "| Carbon Dioxide Recovery Assembly | "; $cdra1 = "";}
-if($test ==1){$t1= "| test | "; $t0 = "";}                                             else{$t0 = "| test | "; $t1 = "";}
+if($pp ==1 && $OGA_O2_Out==1){$pp1 = "<span id='a'>&nbsp;Online</span>";}           else{$pp1   = "<span id='b'>Offline</span>";}
+if($Sabatier_Online ==1){$sr1 = "<span id='a'>&nbsp;Online</span>";}                else{$sr1   = "<span id='b'>Offline</span>";}
+if($CDRA_Online ==1){$cdra1 = "<span id='a'>&nbsp;Online</span>";}      			else{$cdra1 = "<span id='b'>Offline</span>";}
+if($pp ==1 && $OGA_O2_Out ==1 && $Sabatier_Online ==1 && $CDRA_Online ==1){
+	$one = "1";
+	$zero = "0";
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+		// Check connection
+	if ($conn->connect_error) {
+		die("connection failed:" . $conn->connect_error);
+	}
+	$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$one','$zero','$zero','$zero','$zero','$zero','$zero','$zero')";
+	$result = $conn->query($sql);
+}
 
-if($pp ==1 && $sb ==1 && $Sabatier_H2O_Out ==1 && $Sabatier_CH4_Out ==1 && $sf ==1 && $OGA_O2_Out ==1 && $CDRA_CO2_Out ==1 && $cl ==1 && $test ==1){$j=1;$msg1 = "| All Units Online |"; $msg2 = "Enter Marco Polo to redirect to the mainframe";} 
-else{$msg1 = "Units Online: <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> $pp1 $sr1 $cdra1 $t1 <br>----------------------------------------------------------------------------------<br><br> <p>System error finding following Unit(s): <br>---------------------------------------------------------------------------------- <br> $pp0 $sr0 $cdra0 $t0    <br> <!-- somesystemlaghere --->----------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter unit name";}
 
+$msg2 = "Enter unit name";
+$test = "Checking units...
+
+Sabatier Reactor &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $sr1
+<br>----------------------------------------------------------------------------------<br>
+Carbon Dioxide Recovery Assembly &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $cdra1
+<br>----------------------------------------------------------------------------------<br>
+Habitat Atmosperic Pressure &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $pp1
+<br>----------------------------------------------------------------------------------<br>
+
+
+";
 
 $fp = fopen('atm1.txt', 'w+');
 fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Atmospheric Processing Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
@@ -133,28 +168,15 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
 |&nbsp;&nbsp;__/&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;&nbsp;| (_) | | (__&nbsp;&nbsp;|&nbsp;&nbsp;__/ \__ \ \__ \ | | | | | | | (_| |
 |_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;\___|&nbsp;&nbsp;\___| |___/ |___/ |_| |_| |_|&nbsp;&nbsp;\__, |
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___/ 
-__________________________________________________________________________________					
-<p>' . $msg1 . '</p>
+					
+<p>' . $test . '</p>
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg2 . ' </p> ');
 
 fclose($fp);
 
 //if all units are online, register that the Atmospheric Processing module is online
-if($j ==1){
-	$servername = "192.168.1.186";
-	$username = "matt";
-	$password ="";
-	$dbname="Escape_room_db";
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-		// Check connection
-	if ($conn->connect_error) {
-		die("connection failed:" . $conn->connect_error);
-	}
-	$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$one','$zero','$zero','$zero','$zero','$zero','$zero','$zero')";
-	$result = $conn->query($sql);
-}
+
 
 ?>
 

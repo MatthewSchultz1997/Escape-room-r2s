@@ -13,6 +13,6 @@
                                                    
 __________________________________________________________________________________
 
-<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br>    | Sabatier Reactor Online | <br>----------------------------------------------------------------------------------</p> 
+<p>Loading Sabatier Reactor Inputs..... <br>---------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br>    Sabatier Reactor Configured <br>Waiting for Oxygen Generation Assembly to come online...<br>----------------------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> Type Help for a list of commands </p> 

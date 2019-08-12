@@ -20,6 +20,51 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
+<?php
+$servername = "192.168.1.186";
+$username   = "matt";
+$password   = "";
+$dbname     = "Escape_room_db";
+
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM Liquefaction ORDER BY Time desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$N2_storage = $row['N2_storage'];
+$O2_storage = $row['O2_storage'];
+$CH4_storage = $row['CH4_storage'];
+
+
+mysqli_commit($conn);
+mysqli_close($conn);
+
+$msg = "Type Help for a list of commands";
+
+$fp = fopen('Liq2.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Liquefaction module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
+| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;/ _|&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;| |_&nbsp;&nbsp;(_)&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;_ __  
+| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |&nbsp;&nbsp;/ _` | | | | |&nbsp;&nbsp;/ _ \ | |_&nbsp;&nbsp;&nbsp;/ _` |&nbsp;&nbsp;/ __| | __| | |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;| `_ \ 
+| |___&nbsp;&nbsp;| | | (_| | | |_| | |&nbsp;&nbsp;__/ |&nbsp;&nbsp;_| | (_| | | (__&nbsp;&nbsp;| |_&nbsp;&nbsp;| | | (_) | | | | |
+|_____| |_|&nbsp;&nbsp;\__, |&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\___| |_|&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__| |_|&nbsp;&nbsp;\___/&nbsp;&nbsp;|_| |_|
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|                                                              
+_________________________________________________________________________________
+
+<p>Checking inventory levels..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> N2 levels: ............................................................ '. $N2_storage .'%<br> O2 levels: ............................................................ '. $O2_storage .'%<br> CH4 levels:............................................................ '. $CH4_storage .'%<br>---------------------------------------------------------------------------------</p> 
+<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+<p> ' . $msg . ' </p> ');
+
+fclose($fp);
+	
+
+?>
 
 <html> 
 <head> 
@@ -156,7 +201,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Liq1.txt";
+Typer.file="Liq2.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);

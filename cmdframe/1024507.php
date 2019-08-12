@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,92 +19,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm2.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024507 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Roots2Stem: Marco Polo, this is Roots2Stem, can you hear me? 
 
+Marco Polo: You`re coming through loud and clear.
 
-//check which piping connection have been made
-$array = array("Moisture_H2O_Out", "Sabatier_H2O_Out", "OGA_H2O_R_Feed");
-for($i=0; $i <3; $i++){
-	
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-//selecting data from the database
-$sql ="SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
+Roots2Stem: How have the last couple days been? Is the habitat online?
 
-if ($i == 0){
-	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
-}
-if ($i == 1){
-	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];
-}
-if ($i == 2){
-	$Moisture_H2O_Out = $row['Moisture_H2O_Out'];
-}
-mysqli_commit($conn);
-mysqli_close($conn);
-}
-//Prepearing messages to be displayed based on database
-if($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No piping detected";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==1){$j=1;$msg1 ="| Water Recovery Assembly Online |";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No output piping detected";}
-if(($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: No feed piping detected";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: Only 1 feed piping detected. Output piping properly configured";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: Only 1 feed piping detected. No output piping detected";}
-$msg2 = "Type Help for a list of commands";
+Marco Polo: The exoskeleton is built, we are just in the middle of setting up the wireless connection.  What should we set the static IP addresses/passwords to?
 
-$fp = fopen('Water_C.txt', 'w+');
-fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Water Cleanup module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
-__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
-\ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ /&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
-&nbsp;\ \ /\ / /&nbsp;&nbsp;&nbsp;/ _` | | __|&nbsp;&nbsp;/ _ \ | `__|
-&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
-&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___|&nbsp;|_|
-&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;_                                        
-&nbsp;/ ___| | |&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ __  
-| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;/ _` | | `_ \&nbsp;&nbsp;| | | | | `_ \ 
-| |___&nbsp;&nbsp;| | |&nbsp;&nbsp;__/ | (_| | | | | | | |_| | | |_) |
-&nbsp;\____| |_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__,_| |_| |_|&nbsp;&nbsp;\__,_| | .__/ 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_| 
-_________________________________________________________________________________
+Roots2Stem: Make it something easy.
 
-<p>Loading Water Cleanup units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
-<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+Marco Polo: Roger that, setting them to the following:
+Atmospheric Processing: 192.168.1.101/password1 
+Soil Processing: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.102/password2
+Water Cleanup: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.103/password3
+Science Rover: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.104/password4 
+Power Production: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.1.105/password5 
+Water Processing: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.106/password6 
+Liquefaction: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.107/password7 
+
+Roots2Stem: Perfect.
 <p> ' . $msg2 . ' </p> ');
 
 fclose($fp);
-$one = "1";
-$zero = "0";
-if ($j == "1"){
-$servername = "192.168.1.186";
-$username = "matt";
-$password ="";
-$dbname="Escape_room_db";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-	die("connection failed:" . $conn->connect_error);
-}
-$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$zero','$zero','$one','$zero','$zero','$zero','$zero')";
-$result = $conn->query($sql);
-
-$conn->close();
-
-}
 ?>
+
 
 <html> 
 <head> 
@@ -118,7 +61,7 @@ $conn->close();
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -147,7 +90,7 @@ $conn->close();
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -242,7 +185,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Water_C.txt";
+Typer.file="Comm2.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -280,6 +223,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
+ || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -288,6 +232,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;
@@ -299,8 +246,8 @@ else
 }
 }
 </script>
- 
-<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
+
+<form name="cmdentry" action="redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

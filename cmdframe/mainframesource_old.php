@@ -22,7 +22,6 @@ THE SOFTWARE.
 --> 
 
 <?php
-
 $servername = "192.168.1.186";
 $username   = "matt";
 $password   = "";
@@ -40,7 +39,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error){
 	die("connection failed:" . $conn->connect_error);
 }
-//to make sure the sabatier and water recovery modules are online for boot up.
 $sql = "SELECT * FROM Modules ORDER BY ". $array[$i] ." desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
@@ -64,7 +62,7 @@ if ($i == 5){
 	$pwr_p = $row['Pwr_P'];
 }
 if ($i == 6){
-	$water_p = $row['Water_P'];
+	$Water_P = $row['Water_P'];
 }
 if ($i == 7){
 	$liq = $row['Liq'];
@@ -73,151 +71,40 @@ mysqli_commit($conn);
 mysqli_close($conn);
 }
 
-//check piping
-$array = array("OGA_H2_Out", "CDRA_CO2_Out", "Sabatier_H2O_Out", "Sabatier_CH4_Out", "OGA_H2O_Feed", "OGA_H2O_R_Feed", "OGA_O2_Out", "OGA_H2_Out");
-for($i=0; $i <8; $i++){
-	
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+if($atm_p ==1){$ap1 = "| Atmospheric Processing | "; $ap0 = "";} else{$ap0 = "| Atmospheric Processing | "; $ap1 = "";}
+if($comm ==1){$c1   = "| Communications | "; $c0 = "";}          else{$c0   = "| Communications | "; $c1 = "" ;} 
+if($soil_p ==1){$s1= "| Soil Processing | "; $s0 = "";}          else{$s0 = "| Soil Processing | "; $s1 = "";}
+if($water_c ==1){$wc1= "| Water Cleanup | "; $wc0 = "";}         else{$wc0 = "| Water Cleanup | "; $wc1 = "";}
+if($rover ==1){$r1 = "| Rover | "; $r0 = "";}                    else{$r0 = "| Rover | "; $r1 = "";}
+if($pwr_p ==1){$p1= "| Power Production | "; $p0 = "";}          else{$p0 = "| Power Production | "; $p1 = "";}
+if($Water_P ==1){$wp1= "| Water Processing  | "; $wp0 = "";}      else{$wp0 = "| Water Processing  | "; $wp1 = "";}
+if($liq ==1){$l1= "| Liquefaction | "; $l0 = "";}                else{$l0 = "| Liquefaction | "; $l1 = "";}
 
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
+//coloured linux~$ below
+//<span id="a">Linuxcmd</span>:<span id="b">~</span><span id="c">$</span>
 
-$sql = "SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
-if ($i == 0){
-	$OGA_H2_Out = $row['OGA_H2_Out'];	
-}
-if ($i == 1){
-	$CDRA_CO2_Out = $row['CDRA_CO2_Out'];	
-}
-if ($i == 2){
-	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];	
-}
-if ($i == 3){
-	$Sabatier_CH4_Out = $row['Sabatier_CH4_Out'];	
-}
-if ($i == 4){
-	$OGA_H2O_Feed = $row['OGA_H2O_Feed'];
-}
-if ($i == 5){
-	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
-}
-if ($i == 6){
-	$OGA_O2_Out = $row['OGA_O2_Out'];
-}
-if ($i == 7){
-	$OGA_H2_Out = $row['OGA_H2_Out'];
-}
-if($OGA_H2_Out ==1 && $Sabatier_CH4_Out ==1 && $Sabatier_H2O_Out ==1 && $CDRA_CO2_Out ==1){$Sabatier =1;} else{$Sabatier =0;}
-
-mysqli_commit($conn);
-mysqli_close($conn);
-}
-
-//Check if OGA is online
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-	//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-$sql = "SELECT * FROM OGA_Boot ORDER BY OGA_Online desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
-$OGA_booted = $row['OGA_Online'];
-
-mysqli_commit($conn);
-mysqli_close($conn);
+if($atm_p ==1 && $comm ==1 && $soil_p ==1 && $water_c ==1 && $rover ==1 && $pwr_p ==1 && $Water_P ==1 && $liq ==1){$j=1;$msg1 = "| All Modules Online |"; $msg2 = "Winner!";} 
+else{$msg1 = "Modules Online: <br>------------------------------------------------------------------------------------ <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> $ap1 $c1 $s1 $wc1 $r1 $p1 $wp1 $l1 <br>------------------------------------------------------------------------------------<br><br> <p>System error finding following module(s): <br>------------------------------------------------------------------------------------ <br> $ap0 $c0 $s0 $wc0 $r0 $p0 <br> $wp0 $l0 <br> <!-- somesystemlaghere --->------------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter Help for a list of commands";}
 
 
+$fp = fopen('mainframe.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Marco Polo Mainframe... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ OK ]<br/><br/>
 
-//Piping section
-$piping = 0;
-$msg2 = $msg3 = "";
-//No pping set up
-if($OGA_H2O_Feed ==0 && $OGA_H2O_R_Feed ==0 && $OGA_H2_Out ==0 && $OGA_O2_Out ==0){$msg1 ="Error: No piping detected";}
-//feed is set up
-if($OGA_H2O_Feed ==1 && $OGA_H2O_R_Feed ==1){
-	if($OGA_H2_Out ==0 && $OGA_O2_Out ==0){$msg1 = "Error: Feed set up. No output pipes detected";}
-	if($OGA_H2_Out ==1 && $OGA_O2_Out ==0){$msg1 = "Error: Feed set up. No O2 output pipe detected";}
-	if($OGA_H2_Out ==0 && $OGA_O2_Out ==1){$msg1 = "Error: Feed set up. No H2 output pipe detected";}
-	if($OGA_H2_Out ==1 && $OGA_O2_Out ==1){$piping = 1;$msg1 = "Piping Properly configured <br>";}
-}
-//if feed is half set up
-if($OGA_H2O_Feed ==1 xor $OGA_H2O_R_Feed ==1){
-	if($OGA_H2O_Feed ==1 && ($OGA_H2_Out ==1 && $OGA_O2_Out ==0)){$msg1 = "Error: H2O feed from recovery module and O2 output pipes not detected";}
-	if($OGA_H2O_Feed ==1 && ($OGA_H2_Out ==0 && $OGA_O2_Out ==1)){$msg1 = "Error: H2O feed from recovery module and H2 output pipes not detected";}
-	if($OGA_H2O_Feed ==1 && ($OGA_H2_Out ==1 && $OGA_O2_Out ==1)){$msg1 = "Error: Output set up. No H2O feed from recovery module detected";}
-	if($OGA_H2O_R_Feed   ==1 && ($OGA_H2_Out ==1 && $OGA_O2_Out ==0)){$msg1 = "Error: H2O feed from shuttle fuel cell and O2 output pipes not detected";}
-	if($OGA_H2O_R_Feed   ==1 && ($OGA_H2_Out ==0 && $OGA_O2_Out ==1)){$msg1 = "Error: H2O feed from shuttle fuel cell and H2 output pipes not detected";}
-	if($OGA_H2O_R_Feed   ==1 && ($OGA_H2_Out ==1 && $OGA_O2_Out ==1)){$msg1 = "Error: Output set up. No H2O feed from shuttle fuel cell detected";}
-}
-//feed is not set up
-if($OGA_H2O_Feed ==0 && $OGA_H2O_R_Feed ==0){
-	if($OGA_H2_Out ==1 && $OGA_O2_Out ==1){$msg1 = "Error: Output set up. No feed piping  detected";}
-	if($OGA_H2_Out ==0 && $OGA_O2_Out ==1){$msg1 = "Error: Only O2 output piping detected";}
-	if($OGA_H2_Out ==1 && $OGA_O2_Out ==0){$msg1 = "Error: Only H2 output piping detected";}
-}
-$msg = "Enter Help for a list of commands";
-//Message saying ready for boot
-if($piping ==1){ 
-	if($Sabatier ==1){$msg2 = "Ready for boot...";}
-	else{$msg2 = "Waiting for Sabatier Reactor to come online...";}
-}
+<span id="b">M</span>ars<span id="b"> A</span>tmospheric & <span id="b">R</span>egolith <span id="b">CO</span>llector/<span id="b">P</span>r<span id="b">O</span>cessor for <span id="b">L</span>ander <span id="b">O</span>perations 
 
-if($OGA_booted ==1){ $msg2 = "Oxygen Generation Assembly Online";}
+ &nbsp;__&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_         
+ | &nbsp;\/&nbsp; | &nbsp; __ _ &nbsp; _ __ &nbsp;&nbsp; ___ &nbsp;&nbsp; ___&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; _&nbsp;\ &nbsp;&nbsp;&nbsp;___ &nbsp; | | &nbsp; ___  
+ | |\/| |&nbsp; / _&nbsp; | |&nbsp; __|&nbsp; / __|&nbsp; / _ \&nbsp;&nbsp;&nbsp;| |_)&nbsp;| &nbsp;/ _ \&nbsp; | |&nbsp; / _ \ 
+ | |&nbsp; | | | (_| | | |&nbsp; &nbsp; | (__ &nbsp;| (_) |&nbsp;&nbsp;|&nbsp; __/&nbsp; | (_) | | | | (_) |
+ |_|&nbsp; |_|&nbsp; \__`_| |_|&nbsp; &nbsp; &nbsp;\___| &nbsp;\___/&nbsp;&nbsp;&nbsp;|_| &nbsp; &nbsp; &nbsp;\___/ &nbsp;|_| &nbsp;\___/ 
 
-//Next section will be the boot- will have to be mainly on the raspberry pi since I cant continously monitor the database from here... 
-//Place a while true loop inside and if statement, have it break once properly booted?
-//Will update this section when I have the physical units infront of me
 
-$fp = fopen('Water_P.txt', 'w+');
-fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Water Processing module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
-__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
-\ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ /&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
-&nbsp;\ \ /\ / /&nbsp;&nbsp;&nbsp;/ _` | | __|&nbsp;&nbsp;/ _ \ | `__|
-&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
-&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___|&nbsp;|_|
-&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
-|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;(_)&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__ _ 
-| |_) | | `__|&nbsp;&nbsp;/ _ \&nbsp;&nbsp;&nbsp;/ __|&nbsp;&nbsp;/ _ \ / __| / __| | | | `_ \&nbsp;&nbsp;&nbsp;/ _` |
-|&nbsp;&nbsp;__/&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;&nbsp;| (_) | | (__&nbsp;&nbsp;|&nbsp;&nbsp;__/ \__ \ \__ \ | | | | | | | (_| |
-|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\___/&nbsp;&nbsp;&nbsp;\___|&nbsp;&nbsp;\___| |___/ |___/ |_| |_| |_|&nbsp;&nbsp;\__, |
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|___/ 
-
-_________________________________________________________________________________
-
-<p>Loading Water Processing units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . ' ' . $msg2 . ' ' . $msg3 . ' <br>---------------------------------------------------------------------------------</p> 
+Powering on available modules...<!-- laglaglaglaglaglaglaglaglaglaglaglag --> 
+<p>' . $msg1 . '</p>
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
-<p> ' . $msg . ' </p> ');
-
+<p> ' . $msg2 . ' </p> ');
 fclose($fp);
-
-if($boot_ready ==1){
-	$zero = "0";
-	$one = "1";
-	
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
-		die("connection failed:" . $conn->connect_error);
-	}
-	$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$zero','$zero','$zero','$zero','$zero','$one','$zero')";
-	$result = $conn->query($sql);
-	
-	mysqli_commit($conn);
-	mysqli_close($conn);
-}
-
-
 ?>
-
-
 
 <html> 
 <head> 
@@ -268,7 +155,8 @@ if($boot_ready ==1){
 	color: #fff; 
 	font-size:14px;
 	font-family: courier, monospace;
-	}	
+	}
+	
 </style> 
 </head> 
 
@@ -354,7 +242,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Water_P.txt";
+Typer.file="mainframe.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -366,7 +254,6 @@ function t() {
 }
  
 </script> 
-
 <div id="console"></div> 
 <script type="text/javascript">
 
@@ -382,12 +269,10 @@ function t() {
 
 </script>
 
-
-
 <script language="javascript">
 function check(form)
 {
-if(form.cmd.value == "ASCII Decode"
+if( form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Atmospheric Processing"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
@@ -411,12 +296,13 @@ else
 }
 }
 </script>
- 
-<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
+
+<form name="cmdentry" action="redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>
 </form>
+
 
 
 </body> 

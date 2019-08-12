@@ -13,5 +13,5 @@ Liq &nbsp;&nbsp;&nbsp;| 192.168.1.108 | password8
 Sabatier Codes
 __________________________________
 Balanced reaction: "-X 4 -Y 1 -Z 2 -W 1"
-Feedrate: "-H2 12.0 -CO2 3.01 -H2O 10.0 -CH4 5.02"
+Feedrate: "-H2 12.0 -CO2 3.01 -H2O 10.0 -CH4 5.01"
  

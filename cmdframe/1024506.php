@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,92 +19,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm2.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024506 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Marco Polo: Roots 2 Stem, this is Marco Polo, do you copy?
 
+Roots2Stem: We copy Marco Polo.
 
-//check which piping connection have been made
-$array = array("Moisture_H2O_Out", "Sabatier_H2O_Out", "OGA_H2O_R_Feed");
-for($i=0; $i <3; $i++){
-	
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-//selecting data from the database
-$sql ="SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
+Marco Polo: We are having trouble setting up the Sabatier Reactor reagent flow rate, can you give us a quick reminder about how to do stoichiometry?
 
-if ($i == 0){
-	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
-}
-if ($i == 1){
-	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];
-}
-if ($i == 2){
-	$Moisture_H2O_Out = $row['Moisture_H2O_Out'];
-}
-mysqli_commit($conn);
-mysqli_close($conn);
-}
-//Prepearing messages to be displayed based on database
-if($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No piping detected";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==1){$j=1;$msg1 ="| Water Recovery Assembly Online |";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No output piping detected";}
-if(($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: No feed piping detected";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: Only 1 feed piping detected. Output piping properly configured";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: Only 1 feed piping detected. No output piping detected";}
-$msg2 = "Type Help for a list of commands";
+Roots2Stem: In stoichiometry, the equation given represents a chemical reaction. Elements, as denoted by capital letters, sometimes followed by a lowercase letter, must be balanced, or equal, on both sides of the arrow which represents a reaction taking place.  To balance the equation, count the number of elements on both sides of the reaction.  Starting with carbon, if you have more carbons on one side of the equation than on the other, find the lowest common multiple between sides and multiple the molecules coefficients by that number. Next, balance oxygens in the same manner followed by hydrogen.
+ 
+Marco Polo: Right, that makes so much sense. Once I balance the equation, how do I find the inlet flow rate of each reagent for a total flow rate of 12 LPM if the reactor is operating at 13.2 PSI and 250 °C?
 
-$fp = fopen('Water_C.txt', 'w+');
-fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Water Cleanup module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
-__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
-\ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ /&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
-&nbsp;\ \ /\ / /&nbsp;&nbsp;&nbsp;/ _` | | __|&nbsp;&nbsp;/ _ \ | `__|
-&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
-&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___|&nbsp;|_|
-&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;_                                        
-&nbsp;/ ___| | |&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ __  
-| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;/ _` | | `_ \&nbsp;&nbsp;| | | | | `_ \ 
-| |___&nbsp;&nbsp;| | |&nbsp;&nbsp;__/ | (_| | | | | | | |_| | | |_) |
-&nbsp;\____| |_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__,_| |_| |_|&nbsp;&nbsp;\__,_| | .__/ 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_| 
-_________________________________________________________________________________
+Roots2Stem: First thing you have to do is use the ideal gas law to determine the number of mols that occupy each litre of inlet gas at the reactor`s pressure and temperature. To do this, you have to use P*V=n*R*T and determine the ratio V/n. Make sure your pressure is in Pascals (Pa), volume is in cubed meters (m^3) and temperature is in Kelvin (K). Next, divide the LPM by that ratio, giving you the molar flow rate in mols/minute. From here just multiply the molar flow rate by the ratio of each molecule to the total number of mols entering and multiply by 60 to change the time frame from per minute to per hour.
 
-<p>Loading Water Cleanup units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
-<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+Marco Polo: Just to check, my molar flow rate of hydrogen should be 12.0 mol/hr?
+
+Roots2Stem: Looks like you got the hang of it! just repeat that for the other 3 molecular species.
+
+Marco Polo: Roger that.
 <p> ' . $msg2 . ' </p> ');
 
 fclose($fp);
-$one = "1";
-$zero = "0";
-if ($j == "1"){
-$servername = "192.168.1.186";
-$username = "matt";
-$password ="";
-$dbname="Escape_room_db";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-	die("connection failed:" . $conn->connect_error);
-}
-$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$zero','$zero','$one','$zero','$zero','$zero','$zero')";
-$result = $conn->query($sql);
-
-$conn->close();
-
-}
 ?>
+
 
 <html> 
 <head> 
@@ -118,7 +58,7 @@ $conn->close();
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -147,7 +87,7 @@ $conn->close();
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -242,7 +182,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Water_C.txt";
+Typer.file="Comm2.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -280,6 +220,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
+ || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -288,6 +229,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;
@@ -299,8 +243,8 @@ else
 }
 }
 </script>
- 
-<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
+
+<form name="cmdentry" action="redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

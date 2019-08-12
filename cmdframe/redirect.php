@@ -26,7 +26,7 @@ if($user == "Boot"){
 	header("Location: http://192.168.1.157/cmdframe/boot.php");
 }
 if($user == "Communications"){
-	header("Location: http://192.168.1.157/cmdframe/Module_login.php");
+	header("Location: http://192.168.1.157/cmdframe/Comm.php");
 }
 if($user == "1024506"){
 	header("Location: http://192.168.1.157/cmdframe/1024506.php");

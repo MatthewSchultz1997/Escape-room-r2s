@@ -74,14 +74,14 @@ if($CDRA_CO2_Out ==1 && $OGA_O2_Out ==1){
 
 
 $fp = fopen('CDRA1.txt', 'w+');
-fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the CDRA unit... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the CDRA unit... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
 
 &nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_    
 &nbsp;/ ___| |&nbsp;&nbsp;_ \&nbsp;&nbsp;|&nbsp;&nbsp;_ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ \   
 | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| | | | | |_) |&nbsp;&nbsp;&nbsp;/ A \  
 | |___&nbsp;&nbsp;| |_| | |&nbsp;&nbsp;_ <&nbsp;&nbsp;&nbsp;/ ___ \ 
 &nbsp;\____| |____/&nbsp;&nbsp;|_| \_\ /_/&nbsp;&nbsp;&nbsp;\_\
-____________________________________________________________________
+_____________________________________________________________________
 
 <p>Loading Carbon Dioxide Recovery Assembly Inputs..... <br>--------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------</p> 
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->

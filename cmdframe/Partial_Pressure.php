@@ -47,8 +47,28 @@ $CO2 = 100 - $O2;
 
 mysqli_commit($conn);
 mysqli_close($conn);
+			//Checking if the OGA is online
+//create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if($O2 == 9){$msg = "Habitat atmospheric conditions normalized <br><br><br> Enter Help for a list of commands";} else{$msg = "Enter Refresh to update page or Help for a list of commands";}
+//check connection
+if ($conn->connect_error){
+	die("connection failed:" . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM OGA_Boot ORDER BY OGA_Online desc";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$OGA_Online = $row['OGA_Online'];
+
+mysqli_commit($conn);
+mysqli_close($conn);
+
+if($OGA_Online ==0){$msg ="Error: Not enough oxygen in stores, boot up Oxygen Generation Assembly";}
+else{$msg = "Oxygen %   = $O2 <br>Carbon Dioxide % = $CO2 <br><br>Enter Refresh to update page or Help for a list of commands";}
+if($O2 == 21){$msg = "Habitat atmospheric conditions normalized <br><br><br> Enter Help for a list of commands";}
+
+
 $_SESSION["O2"] = $O2;
 $fp = fopen('atmpres.txt', 'w+');
 fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the atmospheric pressure unit... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
@@ -67,8 +87,7 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
      
 __________________________________________________________________________________
 
-Oxygen %   = ' . $O2   . ' 
-Carbon Dioxide % = ' . $CO2 . ' <p> ' . $msg . ' </p> ');
+<p> ' . $msg . ' </p> ');
 
 
 fclose($fp);

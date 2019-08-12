@@ -1,4 +1,3 @@
-
 <!--
 Copyright (c) 2011 Sam Phippen <samphippen@googlemail.com>
  
@@ -20,92 +19,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 --> 
-
 <?php
+$msg2 = "Enter Help for a list of commands";
 
-$servername = "192.168.1.186";
-$username   = "matt";
-$password   = "";
-$dbname     = "Escape_room_db";
+$fp = fopen('Comm1.txt', 'w+');
+fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering Communications log #1024508 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+Marco Polo: Roots 2 Stem, this is the Marco Polo station, do you read me?
 
+Roots2Stem: We can read you.
 
-//check which piping connection have been made
-$array = array("Moisture_H2O_Out", "Sabatier_H2O_Out", "OGA_H2O_R_Feed");
-for($i=0; $i <3; $i++){
-	
-//create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-//check connection
-if ($conn->connect_error){
-	die("connection failed:" . $conn->connect_error);
-}
-//selecting data from the database
-$sql ="SELECT * FROM Piping ORDER BY " . $array[$i] . " desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
+Marco Polo: We just detected a dust storm on the horizon, how does it look from the space station?
 
-if ($i == 0){
-	$OGA_H2O_R_Feed = $row['OGA_H2O_R_Feed'];
-}
-if ($i == 1){
-	$Sabatier_H2O_Out = $row['Sabatier_H2O_Out'];
-}
-if ($i == 2){
-	$Moisture_H2O_Out = $row['Moisture_H2O_Out'];
-}
-mysqli_commit($conn);
-mysqli_close($conn);
-}
-//Prepearing messages to be displayed based on database
-if($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No piping detected";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==1){$j=1;$msg1 ="| Water Recovery Assembly Online |";}
-if($Moisture_H2O_Out ==1 && $Sabatier_H2O_Out ==1 && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: No output piping detected";}
-if(($Moisture_H2O_Out ==0 && $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: No feed piping detected";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==1){$j=0;$msg1 ="Error: Only 1 feed piping detected. Output piping properly configured";}
-if(($Moisture_H2O_Out ==0 xor $Sabatier_H2O_Out ==0) && $OGA_H2O_R_Feed ==0){$j=0;$msg1 ="Error: Only 1 feed piping detected. No output piping detected";}
-$msg2 = "Type Help for a list of commands";
+Roots2Stem: I`s looking like a class 5 dust storm, 3 hours out. Will you be able to finish the Marco Polo exoskeleton in that time?
 
-$fp = fopen('Water_C.txt', 'w+');
-fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Water Cleanup module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
-__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_                 
-\ \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ /&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;| |_&nbsp;&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;_ __ 
-&nbsp;\ \ /\ / /&nbsp;&nbsp;&nbsp;/ _` | | __|&nbsp;&nbsp;/ _ \ | `__|
-&nbsp;&nbsp;\ V&nbsp;&nbsp;V /&nbsp;&nbsp;&nbsp;| (_| | | |_&nbsp;&nbsp;|&nbsp;&nbsp;__/ | |   
-&nbsp;&nbsp;&nbsp;\_/\_/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__,_|&nbsp;&nbsp;\__|&nbsp;&nbsp;\___|&nbsp;|_|
-&nbsp;&nbsp;____&nbsp;&nbsp;&nbsp;_                                        
-&nbsp;/ ___| | |&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;&nbsp;&nbsp;__ _&nbsp;&nbsp;&nbsp;_ __&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_ __  
-| |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |&nbsp;&nbsp;/ _ \&nbsp;&nbsp;/ _` | | `_ \&nbsp;&nbsp;| | | | | `_ \ 
-| |___&nbsp;&nbsp;| | |&nbsp;&nbsp;__/ | (_| | | | | | | |_| | | |_) |
-&nbsp;\____| |_|&nbsp;&nbsp;\___|&nbsp;&nbsp;\__,_| |_| |_|&nbsp;&nbsp;\__,_| | .__/ 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_| 
-_________________________________________________________________________________
+Marco Polo: We will able to anchor it, the contents might be tossed about but its not going anywhere. Im worried the mainframe will need to reboot, breaking our connection.
 
-<p>Loading Water Cleanup units..... <br>--------------------------------------------------------------------------------- <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> ' . $msg1 . '  <br>---------------------------------------------------------------------------------</p> 
-<!--laglaglaglaglaglaglaglaglaglaglaglag -->
+Roots2Stem: Hold tight Marco Polo, you`ve set everything up once, i`m sure you can do it again.
+
+Marco Polo: Roger that, over and out. 
+
+Roots2Stem: over and out.
+
 <p> ' . $msg2 . ' </p> ');
 
 fclose($fp);
-$one = "1";
-$zero = "0";
-if ($j == "1"){
-$servername = "192.168.1.186";
-$username = "matt";
-$password ="";
-$dbname="Escape_room_db";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-	die("connection failed:" . $conn->connect_error);
-}
-$sql = "INSERT INTO Modules (atm_P, Comm, Soil_P, Water_C, Rover, Pwr_P, Water_P, Liq) VALUES ('$zero','$zero','$zero','$one','$zero','$zero','$zero','$zero')";
-$result = $conn->query($sql);
-
-$conn->close();
-
-}
 ?>
+
 
 <html> 
 <head> 
@@ -118,7 +57,7 @@ $conn->close();
 	#console {
 		font-family: courier, monospace;
 		color: #fff;
-		width:750px;
+		width:900px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:100px;
@@ -147,7 +86,7 @@ $conn->close();
 	}
 	.f {
 	font-family: courier, monospace;
-	margin-left:300px; 
+	margin-left:225px; 
 	font-size:14px;
 	}
 	.i {
@@ -242,7 +181,7 @@ function replaceUrls(text) {
 }
 
 Typer.speed=25;
-Typer.file="Water_C.txt";
+Typer.file="Comm1.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
@@ -280,6 +219,7 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Boot"
  || form.cmd.value == "Communications"
  || form.cmd.value == "Help"
+ || form.cmd.value == "Hint"
  || form.cmd.value == "Liquefaction"
  || form.cmd.value == "Marco Polo"
  || form.cmd.value == "Power Production"
@@ -288,6 +228,9 @@ if(form.cmd.value == "ASCII Decode"
  || form.cmd.value == "Time"
  || form.cmd.value == "Water Cleanup"
  || form.cmd.value == "Water Processing"
+ || form.cmd.value == "1024506"
+ || form.cmd.value == "1024507"
+ || form.cmd.value == "1024508"
 )
 {
 	return true;
@@ -299,8 +242,8 @@ else
 }
 }
 </script>
- 
-<form name="Sabatier_entry" action="Sabatier_redirect.php" method="post" >
+
+<form name="cmdentry" action="redirect.php" method="post" >
 	<span  class="f"id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span>
 	<input class="i" type="text" autocomplete="off" name="cmd" >
 	<button class="submitbutton" name="submit" type="submit" onclick="return check(this.form)" value="Enter"></button>

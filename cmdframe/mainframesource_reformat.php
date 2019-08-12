@@ -72,8 +72,8 @@ mysqli_close($conn);
 }
 
 //check which modules are online
-$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Feedrate", "CDRA_Leak", "CDRA_Online", "Test");
-for($i=0; $i <6; $i++){
+$array = array("Partial_Pressures", "Sabatier_Balance", "Sabatier_Feedrate", "CDRA_Connect", "CDRA_Leak", "CDRA_Online", "Test");
+for($i=0; $i <7; $i++){
 	
 //create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -95,13 +95,13 @@ if ($i == 1){
 if ($i == 2){
 	$sf = $row['Sabatier_Feedrate'];	
 }
-if ($i == 3){
+if ($i == 4){
 	$cl = $row['CDRA_Leak'];	
 }
-if ($i == 4){
+if ($i == 5){
 	$CDRA_Online = $row['CDRA_Online'];
 }
-if ($i == 5){
+if ($i == 6){
 	$test = $row['Test'];	
 }
 mysqli_commit($conn);
@@ -165,35 +165,35 @@ $sql = "SELECT * FROM OGA_Boot ORDER BY OGA_Online desc";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
 $OGA_Online = $row['OGA_Online'];
-$sql = "SELECT * FROM OGA_Boot ORDER BY Sabatier_Online desc";
-$result = $conn->query($sql);
-$row = mysqli_fetch_assoc($result);
-$Sabatier_Online = $row['Sabatier_Online'];
 
 					//checking which units are online
 //Sabatier Reactor
-if($Sabatier_Online ==1){$Sabatier = "<span id='a'>&nbsp;Online</span>";} 				   else{$Sabatier = "<span id='b'>Offline</span>";}
+if($sf == 1 && $sb == 1 && $Sabatier_CH4_Out == 1 && $Sabatier_H2O_Out == 1 && $CDRA_CO2_Out == 1 && $OGA_H2_Out == 1){$Sabatier = "<span id='a'>&nbsp;Online</span>";} else{$Sabatier = "<span id='b'>Offline</span>";}
 //CDRA
-if($CDRA_Online ==1){$CDRA = "<span id='a'>&nbsp;Online</span>";} 		  				   else{$CDRA = "<span id='b'>Offline</span>";}
+if($CDRA_Online ==1){$CDRA = "<span id='a'>&nbsp;Online</span>";} else{$CDRA = "<span id='b'>Offline</span>";}
 //HAP
 if($OGA_O2_Out == 1 && $pp == 1){$Partial_Pressure = "<span id='a'>&nbsp;Online</span>";}  else{$Partial_Pressure = "<span id='b'>Offline</span>";}
 //RTG
-if($pwr_p == 1){$RTG = "<span id='a'>&nbsp;Online</span>";}  							   else{$RTG = "<span id='b'>Offline</span>";}
+if($Pwr_P == 1){$RTG = "<span id='a'>&nbsp;Online</span>";}  else{$RTG = "<span id='b'>Offline</span>";}
 //OGA
-if($OGA_Online == 1){$OGA = "<span id='a'>&nbsp;Online</span>";}  						   else{$OGA = "<span id='b'>Offline</span>";}
+if($OGA_Online == 1){$OGA = "<span id='a'>&nbsp;Online</span>";}  else{$OGA = "<span id='b'>Offline</span>";}
 
 //checking which modules are online
-if($CDRA_Online ==1 && $Sabatier_Online ==1 && $OGA_O2_Out == 1 && $pp == 1){$ap1 = "<span id='a'>&nbsp;Online</span>";}      else{$ap1 = "<span id='b'>Offline</span>";}
-if($comm ==1){$c1   = "<span id='a'>Online</span>";}           			 else{$c1   = "<span id='b'>Offline</span>";} 
-if($soil_p ==1){$s1= "<span id='a'>Online</span>";}           			 else{$s1 = "<span id='b'>Offline</span>";}
-if($water_c ==1){$wc1= "<span id='a'>&nbsp;Online</span>";}    			 else{$wc1 = "<span id='b'>Offline</span>";}
-if($rover ==1){$r1 = "<span id='a'>Online</span>";}            			 else{$r1 = "<span id='b'>Offline</span>";}
-if($pwr_p ==1){$p1= "&nbsp;<span id='a'>Online</span>";}            		     else{$p1 = "<span id='b'>Offline</span>";}
-if($OGA_Online ==1){$wp1= "<span id='a'>&nbsp;Online</span>";}           else{$wp1 = "<span id='b'>Offline</span>";}
-if($liq ==1){$l1= "<span id='a'>Online</span>";}              			 else{$l1 = "<span id='b'>Offline</span>";}
-
+if($atm_p ==1){$ap1 = "<span id='a'>&nbsp;Online</span>";}      else{$ap1 = "<span id='b'>Offline</span>";}
+if($comm ==1){$c1   = "<span id='a'>Online</span>";}            else{$c1   = "<span id='b'>Offline</span>";} 
+if($soil_p ==1){$s1= "<span id='a'>Online</span>";}             else{$s1 = "<span id='b'>Offline</span>";}
+if($water_c ==1){$wc1= "<span id='a'>&nbsp;Online</span>";}     else{$wc1 = "<span id='b'>Offline</span>";}
+if($rover ==1){$r1 = "<span id='a'>Online</span>";}             else{$r1 = "<span id='b'>Offline</span>";}
+if($pwr_p ==1){$p1= "<span id='a'>Online</span>";}              else{$p1 = "<span id='b'>Offline</span>";}
+if($Water_P ==1){$wp1= "<span id='a'>Online</span>";}           else{$wp1 = "<span id='b'>Offline</span>";}
+if($liq ==1){$l1= "<span id='a'>Online</span>";}                else{$l1 = "<span id='b'>Offline</span>";}
 $msg2 = "Enter Help for a list of commands";
-$msg1 = "Science Rover Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $r1 
+//coloured linux~$ below
+//<span id="a">Linuxcmd</span>:<span id="b">~</span><span id="c">$</span>
+
+//if($atm_p ==1 && $comm ==1 && $soil_p ==1 && $water_c ==1 && $rover ==1 && $pwr_p ==1 && $Water_P ==1 && $liq ==1){$j=1;$msg1 = "| All Modules Online |"; $msg2 = "Winner!";} 
+//else{$msg1 = "Modules Online: <br> <!-- oqwipjefqwioefjwioqfjoiqwjfeioqwjefoi --><br> $ap1 $c1 $s1 $wc1 $r1 $p1 $wp1 $l1 <br>------------------------------------------------------------------------------------<br><br> <p>System error finding following module(s): <br>------------------------------------------------------------------------------------ <br> $ap0 $c0 $s0 $wc0 $r0 $p0 <br> $wp0 $l0 <br> <!-- somesystemlaghere --->------------------------------------------------------------------------------------</p> <!-- laglaglaglaglaglaglaglaglaglaglaglag --></p><!-- superlonglagtimethattakesupalotoftimetoread --> "; $msg2 = "Enter Help for a list of commands";}
+$test = "Science Rover Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $r1 
 <br>-------------------------------------------------------------------------------------<br>
 Liquefaction Module&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $l1
 <br>-------------------------------------------------------------------------------------<br>
@@ -235,7 +235,7 @@ fwrite($fp, '<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</sp
 
 
 Checking modules status...<!-- laglaglaglaglaglaglaglaglaglaglaglag --> 
-<p>' . $msg1 . '</p>
+<p>' . $test . '</p>
 <!--laglaglaglaglaglaglaglaglaglaglaglag -->
 <p> ' . $msg2 . ' </p> ');
 fclose($fp);
@@ -363,6 +363,17 @@ fclose($fp);
 		}
 	},
  
+}
+ 
+function replaceUrls(text) {
+	var http = text.indexOf("http://");
+	var space = text.indexOf(".me ", http);
+	if (space != -1) { 
+		var url = text.slice(http, space-1);
+		return text.replace(url, "<a href=\""  + url + "\">" + url + "</a>");
+	} else {
+	return text
+}
 }
 
 Typer.speed=25;
