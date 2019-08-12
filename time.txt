@@ -1,0 +1,14 @@
+<span id="a">Linuxcmd</span><span id="b">~</span><span id="c">$</span> Entering the Time module... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp [ Ok ] <br/><br/>
+
+&nbsp;_____&nbsp;&nbsp;&nbsp;_                    
+|_&nbsp;&nbsp;&nbsp;_| (_)&nbsp;&nbsp;_ __ ___&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;___ 
+&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;| | | `_ ` _ \&nbsp;&nbsp;&nbsp;/ _ \
+&nbsp;&nbsp;| |&nbsp;&nbsp;&nbsp;| | | | | | | | |&nbsp;&nbsp;__/
+&nbsp;&nbsp;|_|&nbsp;&nbsp;&nbsp;|_| |_| |_| |_|&nbsp;&nbsp;\___|
+________________________________________________________________________________
+
+Elapsed time   = 0 minutes
+Time remaining = 60 minutes
+
+
+<p> Type Help for a list of commands </p> 
